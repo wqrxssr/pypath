@@ -34,6 +34,41 @@ async function saveUserData() {
     await setDoc(userRef, userData, { merge: true });
 }
 
+// ============ ФУНКЦИЯ ОБНОВЛЕНИЯ UI (ПЕРЕНЕСЕНА ВВЕРХ) ============
+function updateUI() {
+    const energyEl = document.getElementById('energyValue');
+    const livesEl = document.getElementById('livesValue');
+    const scoreEl = document.getElementById('scoreValue');
+    const streakEl = document.getElementById('streakValue');
+    if (energyEl) energyEl.textContent = userData?.energy || 5;
+    if (livesEl) livesEl.textContent = userData?.lives || 5;
+    if (scoreEl) scoreEl.textContent = userData?.totalScore || 0;
+    if (streakEl) streakEl.textContent = userData?.streak || 0;
+    
+    const energyValue2 = document.getElementById('energyValue2');
+    const livesValue2 = document.getElementById('livesValue2');
+    if (energyValue2) energyValue2.textContent = userData?.energy || 5;
+    if (livesValue2) livesValue2.textContent = userData?.lives || 5;
+    
+    const nextEnergyEl = document.getElementById('nextEnergyTime');
+    if (nextEnergyEl && userData) {
+        if (userData.energy < 5) {
+            const nextTime = userData.lastEnergyUpdate + 3600000;
+            const diff = nextTime - Date.now();
+            if (diff > 0) {
+                const minutes = Math.floor(diff / 60000);
+                const seconds = Math.floor((diff % 60000) / 1000);
+                nextEnergyEl.textContent = `${minutes}м ${seconds}с`;
+            } else {
+                nextEnergyEl.textContent = 'скоро';
+            }
+        } else {
+            nextEnergyEl.textContent = 'полна';
+        }
+    }
+}
+
+// ============ ОБНОВЛЕНИЕ РЕСУРСОВ ============
 function updateResources() {
     if (!userData) return;
     const now = Date.now();
@@ -632,36 +667,6 @@ if (window.location.pathname.includes('dashboard.html')) {
             return { module: 'A1', id: 1 };
         }
         
-        function updateUI() {
-            const energyEl = document.getElementById('energyValue');
-            const livesEl = document.getElementById('livesValue');
-            const scoreEl = document.getElementById('scoreValue');
-            const streakEl = document.getElementById('streakValue');
-            if (energyEl) energyEl.textContent = userData.energy;
-            if (livesEl) livesEl.textContent = userData.lives;
-            if (scoreEl) scoreEl.textContent = userData.totalScore;
-            if (streakEl) streakEl.textContent = userData.streak || 0;
-            
-            const energyValue2 = document.getElementById('energyValue2');
-            const livesValue2 = document.getElementById('livesValue2');
-            if (energyValue2) energyValue2.textContent = userData.energy;
-            if (livesValue2) livesValue2.textContent = userData.lives;
-            
-            if (userData.energy < 5) {
-                const nextTime = userData.lastEnergyUpdate + 3600000;
-                const diff = nextTime - Date.now();
-                if (diff > 0) {
-                    const minutes = Math.floor(diff / 60000);
-                    const seconds = Math.floor((diff % 60000) / 1000);
-                    const nextEl = document.getElementById('nextEnergyTime');
-                    if (nextEl) nextEl.textContent = `${minutes}м ${seconds}с`;
-                }
-            } else {
-                const nextEl = document.getElementById('nextEnergyTime');
-                if (nextEl) nextEl.textContent = 'полна';
-            }
-        }
-        
         async function loadModules() {
             const container = document.getElementById('modulesGrid');
             if (!container) return;
@@ -1235,6 +1240,13 @@ if (window.location.pathname.includes('profile.html')) {
         const userRef = doc(db, 'users', user.uid);
         const userSnap = await getDoc(userRef);
         userData = userSnap.data();
+        
+        // Аватар из первой буквы email
+        const avatarEl = document.getElementById('userAvatar');
+        if (avatarEl && user.email) {
+            const firstLetter = user.email.charAt(0).toUpperCase();
+            avatarEl.textContent = firstLetter;
+        }
         
         const rank = getRank(userData.totalScore);
         const rankNameEl = document.getElementById('rankName');
