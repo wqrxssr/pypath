@@ -587,7 +587,6 @@ if (window.location.pathname.includes('dashboard.html')) {
         const today = new Date().toDateString();
         const lastLoginDate = userData.lastLogin ? new Date(userData.lastLogin).toDateString() : null;
         
-        // Проверка стрейка
         if (lastLoginDate !== today) {
             const yesterday = new Date();
             yesterday.setDate(yesterday.getDate() - 1);
@@ -605,7 +604,6 @@ if (window.location.pathname.includes('dashboard.html')) {
             await saveUserData();
         }
         
-        // Обновление ежедневных заданий
         if (userData.dailyQuests?.date !== today) {
             userData.dailyQuests = {
                 date: today,
@@ -630,30 +628,40 @@ if (window.location.pathname.includes('dashboard.html')) {
             const next = findNextLesson();
             window.location.href = `lesson.html?module=${next.module}&lesson=${next.id}`;
         };
-        document.getElementById('buyEnergyBtn').onclick = async () => {
-            if (userData.totalScore >= 50 && userData.energy < 5) {
-                userData.totalScore -= 50;
-                userData.energy = Math.min(5, userData.energy + 1);
-                await saveUserData();
-                updateUI();
-                showMessage('+1 энергия!', 'success');
-                playSound('reward');
-            } else {
-                showMessage('Недостаточно очков или энергия полна', 'error');
-            }
-        };
-        document.getElementById('buyLifeBtn').onclick = async () => {
-            if (userData.totalScore >= 100 && userData.lives < 5) {
-                userData.totalScore -= 100;
-                userData.lives = Math.min(5, userData.lives + 1);
-                await saveUserData();
-                updateUI();
-                showMessage('+1 жизнь!', 'success');
-                playSound('reward');
-            } else {
-                showMessage('Недостаточно очков или жизни полны', 'error');
-            }
-        };
+        
+        // ============ КНОПКИ ПОКУПКИ (С ПРОВЕРКОЙ СУЩЕСТВОВАНИЯ) ============
+        const buyEnergyBtn = document.getElementById('buyEnergyBtn');
+        const buyLifeBtn = document.getElementById('buyLifeBtn');
+        
+        if (buyEnergyBtn) {
+            buyEnergyBtn.onclick = async () => {
+                if (userData.totalScore >= 50 && userData.energy < 5) {
+                    userData.totalScore -= 50;
+                    userData.energy = Math.min(5, userData.energy + 1);
+                    await saveUserData();
+                    updateUI();
+                    showMessage('+1 энергия!', 'success');
+                    playSound('reward');
+                } else {
+                    showMessage('Недостаточно очков или энергия полна', 'error');
+                }
+            };
+        }
+        
+        if (buyLifeBtn) {
+            buyLifeBtn.onclick = async () => {
+                if (userData.totalScore >= 100 && userData.lives < 5) {
+                    userData.totalScore -= 100;
+                    userData.lives = Math.min(5, userData.lives + 1);
+                    await saveUserData();
+                    updateUI();
+                    showMessage('+1 жизнь!', 'success');
+                    playSound('reward');
+                } else {
+                    showMessage('Недостаточно очков или жизни полны', 'error');
+                }
+            };
+        }
         
         function findNextLesson() {
             for (let m of modulesList) {
