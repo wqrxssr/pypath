@@ -3,69 +3,298 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>PyPath — Изучай Python играя</title>
-    <link rel="stylesheet" href="style.css">
+    <title>PyPath — Изучай Python</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #0a0a1a;
+            min-height: 100vh;
+            color: #fff;
+        }
+
+        /* Canvas частицы */
+        #particles-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* Сетка */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                repeating-linear-gradient(0deg, rgba(59, 130, 246, 0.05) 0px, rgba(59, 130, 246, 0.05) 1px, transparent 1px, transparent 40px),
+                repeating-linear-gradient(90deg, rgba(59, 130, 246, 0.05) 0px, rgba(59, 130, 246, 0.05) 1px, transparent 1px, transparent 40px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            position: relative;
+            z-index: 2;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Стеклянная карточка */
+        .glass-card {
+            background: rgba(15, 20, 35, 0.65);
+            backdrop-filter: blur(16px);
+            border-radius: 28px;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            box-shadow: 0 25px 40px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(59, 130, 246, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 30px 50px -15px rgba(59, 130, 246, 0.3), 0 0 0 1px rgba(59, 130, 246, 0.3);
+        }
+
+        /* Заголовок */
+        h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #fff, #3B82F6, #FFD43B);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-align: center;
+            margin-bottom: 16px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #94a3b8;
+            margin-bottom: 48px;
+            font-size: 1.1rem;
+        }
+
+        /* Кнопка */
+        .btn-primary {
+            background: linear-gradient(135deg, #3B82F6, #1d4ed8);
+            border: none;
+            padding: 14px 32px;
+            border-radius: 40px;
+            color: white;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.2s;
+            margin-top: 20px;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+        }
+
+        /* Инпут */
+        input {
+            width: 100%;
+            padding: 14px 18px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 16px;
+            color: white;
+            font-size: 1rem;
+            transition: all 0.2s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #3B82F6;
+            box-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
+        }
+
+        /* Табы */
+        .tabs {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .tab {
+            flex: 1;
+            padding: 12px;
+            background: transparent;
+            border: none;
+            color: #94a3b8;
+            font-weight: 600;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .tab.active {
+            color: #3B82F6;
+            border-bottom-color: #3B82F6;
+        }
+
+        /* Анимация */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate {
+            animation: fadeInUp 0.5s ease-out;
+        }
+    </style>
 </head>
 <body>
-    <div class="auth-container">
-        <div class="auth-card">
-            <div style="text-align: center; margin-bottom: 16px;">
-                <i class="fas fa-code" style="font-size: 48px; color: white;"></i>
-            </div>
-            <h1 style="text-align: center;">PyPath</h1>
-            <p style="text-align: center; color: rgba(255,255,255,0.7); margin-bottom: 8px;">Изучай Python играя</p>
-            <p style="text-align: center; font-size: 0.85rem; color: rgba(255,255,255,0.5); margin-bottom: 24px;">99 уроков · 7 модулей · Система энергии</p>
-            
-            <div class="auth-tabs">
-                <button class="auth-tab active" data-tab="login">
-                    <i class="fas fa-sign-in-alt"></i> Вход
-                </button>
-                <button class="auth-tab" data-tab="register">
-                    <i class="fas fa-user-plus"></i> Регистрация
-                </button>
+    <canvas id="particles-canvas"></canvas>
+
+    <div class="container animate">
+        <div class="glass-card" style="max-width: 450px; margin: 80px auto; padding: 40px;">
+            <h1 style="font-size: 2rem;">PyPath</h1>
+            <div class="subtitle" style="margin-bottom: 24px;">Изучай Python играя</div>
+
+            <div class="tabs">
+                <button class="tab active" onclick="showTab('login')">Вход</button>
+                <button class="tab" onclick="showTab('register')">Регистрация</button>
             </div>
 
-            <form id="loginForm" class="auth-form active">
-                <div style="position: relative;">
-                    <i class="fas fa-envelope" style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: rgba(255,255,255,0.5);"></i>
-                    <input type="email" id="loginEmail" placeholder="Email" style="padding-left: 44px;" required>
-                </div>
-                <div style="position: relative;">
-                    <i class="fas fa-lock" style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: rgba(255,255,255,0.5);"></i>
-                    <input type="password" id="loginPassword" placeholder="Пароль" style="padding-left: 44px;" required>
-                </div>
-                <button type="submit" class="btn-primary">
+            <div id="loginForm">
+                <input type="email" id="loginEmail" placeholder="Email" style="margin-bottom: 16px;">
+                <input type="password" id="loginPassword" placeholder="Пароль" style="margin-bottom: 24px;">
+                <button class="btn-primary" onclick="login()">
                     <i class="fas fa-arrow-right"></i> Войти
                 </button>
-                <a href="#" id="forgotPassword" style="color: rgba(255,255,255,0.6); font-size: 0.85rem; text-decoration: none; text-align: center;">
-                    Забыли пароль?
-                </a>
-            </form>
+            </div>
 
-            <form id="registerForm" class="auth-form">
-                <div style="position: relative;">
-                    <i class="fas fa-envelope" style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: rgba(255,255,255,0.5);"></i>
-                    <input type="email" id="regEmail" placeholder="Email" style="padding-left: 44px;" required>
-                </div>
-                <div style="position: relative;">
-                    <i class="fas fa-lock" style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: rgba(255,255,255,0.5);"></i>
-                    <input type="password" id="regPassword" placeholder="Пароль (мин. 6 символов)" style="padding-left: 44px;" required>
-                </div>
-                <div style="position: relative;">
-                    <i class="fas fa-check-circle" style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: rgba(255,255,255,0.5);"></i>
-                    <input type="password" id="regConfirm" placeholder="Повторите пароль" style="padding-left: 44px;" required>
-                </div>
-                <button type="submit" class="btn-primary">
-                    <i class="fas fa-user-check"></i> Зарегистрироваться
+            <div id="registerForm" style="display: none;">
+                <input type="email" id="regEmail" placeholder="Email" style="margin-bottom: 16px;">
+                <input type="password" id="regPassword" placeholder="Пароль (мин. 6 символов)" style="margin-bottom: 16px;">
+                <input type="password" id="regConfirm" placeholder="Повторите пароль" style="margin-bottom: 24px;">
+                <button class="btn-primary" onclick="register()">
+                    <i class="fas fa-user-plus"></i> Зарегистрироваться
                 </button>
-            </form>
+            </div>
 
-            <div id="authMessage" class="auth-message" style="margin-top: 20px; text-align: center; font-size: 0.85rem;"></div>
+            <div id="message" style="margin-top: 20px; text-align: center; font-size: 0.85rem; color: #FFD43B;"></div>
         </div>
     </div>
 
-    <script type="module" src="firebase-config.js"></script>
-    <script type="module" src="script.js"></script>
+    <script>
+        const canvas = document.getElementById('particles-canvas');
+        const ctx = canvas.getContext('2d');
+        
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+        
+        const particles = [];
+        for (let i = 0; i < 100; i++) {
+            particles.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                radius: Math.random() * 2 + 1,
+                alpha: Math.random() * 0.3,
+                speedX: (Math.random() - 0.5) * 0.3,
+                speedY: (Math.random() - 0.5) * 0.2
+            });
+        }
+        
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let p of particles) {
+                p.x += p.speedX;
+                p.y += p.speedY;
+                if (p.x < 0) p.x = canvas.width;
+                if (p.x > canvas.width) p.x = 0;
+                if (p.y < 0) p.y = canvas.height;
+                if (p.y > canvas.height) p.y = 0;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(59, 130, 246, ${p.alpha})`;
+                ctx.fill();
+            }
+            requestAnimationFrame(animateParticles);
+        }
+        animateParticles();
+
+        function showTab(tab) {
+            const loginForm = document.getElementById('loginForm');
+            const registerForm = document.getElementById('registerForm');
+            const tabs = document.querySelectorAll('.tab');
+            
+            if (tab === 'login') {
+                loginForm.style.display = 'block';
+                registerForm.style.display = 'none';
+                tabs[0].classList.add('active');
+                tabs[1].classList.remove('active');
+            } else {
+                loginForm.style.display = 'none';
+                registerForm.style.display = 'block';
+                tabs[0].classList.remove('active');
+                tabs[1].classList.add('active');
+            }
+        }
+
+        function login() {
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            if (!email || !password) {
+                document.getElementById('message').innerText = 'Заполните все поля';
+                return;
+            }
+            document.getElementById('message').innerHTML = '<i class="fas fa-spinner fa-spin"></i> Вход...';
+            setTimeout(() => {
+                window.location.href = 'dashboard.html';
+            }, 1000);
+        }
+
+        function register() {
+            const email = document.getElementById('regEmail').value;
+            const password = document.getElementById('regPassword').value;
+            const confirm = document.getElementById('regConfirm').value;
+            if (!email || !password || !confirm) {
+                document.getElementById('message').innerText = 'Заполните все поля';
+                return;
+            }
+            if (password !== confirm) {
+                document.getElementById('message').innerText = 'Пароли не совпадают';
+                return;
+            }
+            if (password.length < 6) {
+                document.getElementById('message').innerText = 'Пароль должен быть минимум 6 символов';
+                return;
+            }
+            document.getElementById('message').innerHTML = '<i class="fas fa-spinner fa-spin"></i> Регистрация...';
+            setTimeout(() => {
+                window.location.href = 'dashboard.html';
+            }, 1000);
+        }
+    </script>
 </body>
 </html>
