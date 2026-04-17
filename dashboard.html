@@ -2,90 +2,128 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>PyPath — Панель обучения</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
     <div class="container">
         <!-- Верхняя панель -->
         <div class="top-bar">
-            <div class="logo">🐍 PyPath</div>
+            <div class="logo">
+                <i class="fas fa-code"></i> PyPath
+            </div>
             <div class="stats-bar">
                 <div class="stat">
-                    <span>⚡</span>
-                    <div class="energy-bar">
-                        <div class="energy-fill" id="energyFill"></div>
-                    </div>
+                    <i class="fas fa-bolt" style="color: var(--warning);"></i>
                     <span id="energyValue">5</span>
+                    <span>/5</span>
                 </div>
                 <div class="stat">
-                    <span>❤️</span>
-                    <div class="lives-bar">
-                        <div class="lives-fill" id="livesFill"></div>
-                    </div>
+                    <i class="fas fa-heart" style="color: var(--danger);"></i>
                     <span id="livesValue">5</span>
+                    <span>/5</span>
                 </div>
                 <div class="stat">
-                    <span>⭐</span>
+                    <i class="fas fa-star" style="color: var(--warning);"></i>
                     <span id="scoreValue">0</span>
                 </div>
-                <div class="stat">
-                    <span>🔥</span>
+                <div class="stat" id="streakBtn" style="cursor: pointer;">
+                    <i class="fas fa-fire" style="color: var(--warning);"></i>
                     <span id="streakValue">0</span>
+                    <span>дней</span>
                 </div>
             </div>
             <div class="settings-icons">
-                <button id="themeToggle" class="icon-btn">🌙</button>
-                <button id="soundToggle" class="icon-btn">🔊</button>
-                <button id="logoutBtn" class="icon-btn">🚪</button>
+                <button id="themeToggle" class="icon-btn">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button id="soundToggle" class="icon-btn">
+                    <i class="fas fa-volume-up"></i>
+                </button>
+                <button id="profileBtn" class="icon-btn">
+                    <i class="fas fa-user"></i>
+                </button>
+                <button id="logoutBtn" class="icon-btn">
+                    <i class="fas fa-sign-out-alt"></i>
+                </button>
             </div>
         </div>
 
-        <!-- Информация о пользователе -->
+        <!-- Инфо карточки -->
         <div class="user-info">
-            <div class="rank-card">
-                <span id="rankName">Бронзовый код</span>
+            <div class="glass-card" style="padding: 20px;">
+                <h3 style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-secondary);">
+                    <i class="fas fa-trophy"></i> Твой ранг
+                </h3>
+                <div style="font-size: 1.5rem; font-weight: 700; margin: 8px 0;" id="rankName">Бронзовый код</div>
                 <div class="rank-progress">
                     <div class="rank-progress-fill" id="rankProgress"></div>
                 </div>
-                <span id="rankPoints">0 / 500</span>
+                <div style="display: flex; justify-content: space-between; font-size: 0.8rem;">
+                    <span id="rankPoints">0</span>
+                    <span id="nextRank">→ 500</span>
+                </div>
             </div>
-            <div class="league-card">
-                <span>🏆 <span id="leagueName">Бронзовая лига</span></span>
-                <span>📍 Позиция: <span id="leaguePosition">0</span>/20</span>
+            <div class="glass-card" style="padding: 20px;">
+                <h3 style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-secondary);">
+                    <i class="fas fa-chart-line"></i> Лига
+                </h3>
+                <div style="font-size: 1.2rem; margin: 8px 0;" id="leagueName">Бронзовая лига</div>
+                <div style="font-size: 0.85rem;">📍 Позиция: <span id="leaguePosition">0</span>/20</div>
             </div>
         </div>
 
-        <!-- Энергия и жизни -->
+        <!-- Ресурсы -->
         <div class="resources-panel">
-            <div class="resource">
-                <h3>⚡ Энергия</h3>
-                <p>Восстанавливается: <span id="energyRestore">1 в час</span></p>
-                <p>Следующая: <span id="nextEnergy">--:--:--</span></p>
+            <div class="glass-card" style="padding: 20px; text-align: center;">
+                <h3><i class="fas fa-bolt"></i> Энергия</h3>
+                <div style="font-size: 2rem; font-weight: 700; margin: 8px 0;"><span id="energyValue2">5</span>/5</div>
+                <div style="font-size: 0.8rem; color: var(--text-secondary);">Восстанавливается: 1 в час</div>
+                <div style="font-size: 0.8rem;" id="nextEnergy">Следующая: --:--:--</div>
+                <button id="buyEnergyBtn" class="btn-secondary" style="margin-top: 12px;">
+                    <i class="fas fa-shopping-cart"></i> Купить энергию (50⭐)
+                </button>
             </div>
-            <div class="resource">
-                <h3>❤️ Жизни</h3>
-                <p>Восстановление: +1 за урок, +1/30мин</p>
-                <button id="buyLifeBtn" class="btn-small">Купить жизнь (100 ⭐)</button>
+            <div class="glass-card" style="padding: 20px; text-align: center;">
+                <h3><i class="fas fa-heart"></i> Жизни</h3>
+                <div style="font-size: 2rem; font-weight: 700; margin: 8px 0;"><span id="livesValue2">5</span>/5</div>
+                <div style="font-size: 0.8rem; color: var(--text-secondary);">+1 за урок, +1/30мин</div>
+                <button id="buyLifeBtn" class="btn-secondary" style="margin-top: 12px;">
+                    <i class="fas fa-shopping-cart"></i> Купить жизнь (100⭐)
+                </button>
             </div>
         </div>
 
         <!-- Ежедневные задания -->
-        <div class="daily-quests">
-            <h3>📅 Ежедневные задания</h3>
+        <div class="daily-quests glass-card">
+            <h3><i class="fas fa-calendar-day"></i> Ежедневные задания</h3>
             <div id="questsList" class="quests-list"></div>
         </div>
 
-        <!-- Модули обучения -->
-        <h2>📚 Путь Python</h2>
+        <!-- Модули -->
+        <h2 style="margin: 32px 0 16px;"><i class="fas fa-layer-group"></i> Путь Python</h2>
         <div class="modules-grid" id="modulesGrid"></div>
 
-        <!-- Отдельный режим повторения -->
-        <div class="review-mode">
-            <h3>🔄 Режим повторения</h3>
-            <p>Повтори пройденные уроки без траты энергии (без награды)</p>
+        <!-- Режим повторения -->
+        <div class="glass-card" style="margin: 32px 0; padding: 24px;">
+            <h3><i class="fas fa-undo-alt"></i> Режим повторения</h3>
+            <p style="color: var(--text-secondary); margin: 8px 0;">Повтори пройденные уроки без траты энергии (без награды)</p>
             <div id="reviewLessons" class="review-lessons"></div>
+        </div>
+    </div>
+
+    <!-- Модальное окно стрейка -->
+    <div id="streakModal" class="modal">
+        <div class="modal-content">
+            <h2><i class="fas fa-fire" style="color: var(--warning);"></i> Твой стрейк</h2>
+            <div style="font-size: 2.5rem; font-weight: 700; margin: 16px 0;" id="streakModalValue">0 дней</div>
+            <div id="calendarContainer" class="calendar"></div>
+            <button id="restoreStreakBtn" class="btn-primary" style="margin-top: 16px;">
+                <i class="fas fa-heartbeat"></i> Восстановить стрейк (200⭐)
+            </button>
+            <button id="closeModalBtn" class="btn-secondary" style="margin-top: 12px;">Закрыть</button>
         </div>
     </div>
 
