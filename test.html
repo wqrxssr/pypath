@@ -6,93 +6,67 @@
     <title>PyPath — Тест</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: system-ui, sans-serif; background: #0a0a1a; color: white; }
-        #particles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; }
-        .container { position: relative; z-index: 2; max-width: 800px; margin: 0 auto; padding: 20px; }
-        .header { display: flex; justify-content: space-between; align-items: center; background: rgba(10,10,26,0.7); backdrop-filter: blur(16px); border-radius: 60px; padding: 12px 24px; margin-bottom: 40px; border: 1px solid rgba(59,130,246,0.2); }
-        .back-btn { background: transparent; border: none; color: #94a3b8; cursor: pointer; font-size: 1rem; }
-        .test-card { background: rgba(15,20,35,0.6); backdrop-filter: blur(12px); border-radius: 28px; padding: 32px; margin-bottom: 24px; border: 1px solid rgba(59,130,246,0.2); }
-        .question { margin: 20px 0; padding: 20px; background: #1a1f2e; border-radius: 20px; }
-        .option { display: block; margin: 12px 0; padding: 12px; background: #0f1420; border-radius: 12px; cursor: pointer; }
-        .option:hover { background: #1a1f2e; border: 1px solid #3B82F6; }
-        .btn { background: linear-gradient(135deg,#3B82F6,#1d4ed8); border: none; padding: 12px 24px; border-radius: 40px; color: white; cursor: pointer; margin-top: 20px; width: 100%; }
-        .result { margin-top: 20px; padding: 20px; border-radius: 20px; text-align: center; }
-        .success { background: rgba(34,197,94,0.2); border: 1px solid #22c55e; }
-        .fail { background: rgba(239,68,68,0.2); border: 1px solid #ef4444; }
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Inter',system-ui,sans-serif;background:#0a0a1a;color:#fff;min-height:100vh}
+        #particles{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0}
+        body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;background-image:linear-gradient(rgba(59,130,246,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(59,130,246,0.04) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;z-index:0}
+        .container{position:relative;z-index:2;max-width:800px;margin:0 auto;padding:20px}
+        .header{display:flex;justify-content:space-between;align-items:center;background:rgba(15,20,35,0.7);backdrop-filter:blur(16px);border-radius:60px;padding:12px 24px;margin-bottom:32px;border:1px solid rgba(59,130,246,0.2)}
+        .logo i{color:#FFD43B}
+        .logo span{background:linear-gradient(135deg,#3B82F6,#FFD43B);-webkit-background-clip:text;background-clip:text;color:transparent}
+        .back-btn{background:0;border:none;color:#94a3b8;cursor:pointer;font-size:1rem}
+        .back-btn:hover{color:#3B82F6}
+        .test-card{background:rgba(15,20,35,0.6);backdrop-filter:blur(12px);border-radius:28px;padding:32px;border:1px solid rgba(59,130,246,0.2)}
+        .progress-bar{height:6px;background:rgba(255,255,255,0.1);border-radius:3px;margin:20px 0}
+        .progress-fill{height:100%;background:linear-gradient(90deg,#3B82F6,#FFD43B);border-radius:3px;transition:width 0.3s}
+        .question{padding:20px;background:#1a1f2e;border-radius:20px;margin:20px 0}
+        .question h3{margin-bottom:12px}
+        .option{display:block;margin:12px 0;padding:12px;background:#0f1420;border-radius:12px;cursor:pointer;transition:0.2s}
+        .option:hover{background:#1a1f2e;border:1px solid #3B82F6}
+        .test-controls{display:flex;gap:12px;margin:20px 0}
+        .btn{background:linear-gradient(135deg,#3B82F6,#1d4ed8);border:none;padding:12px 24px;border-radius:40px;color:#fff;cursor:pointer;transition:0.2s}
+        .btn:hover{transform:translateY(-2px);box-shadow:0 0 15px rgba(59,130,246,0.4)}
+        .result-success{background:rgba(34,197,94,0.2);border:1px solid #22c55e;border-radius:20px;padding:32px;text-align:center}
+        .result-fail{background:rgba(239,68,68,0.2);border:1px solid #ef4444;border-radius:20px;padding:32px;text-align:center}
+        .result-success i, .result-fail i{font-size:3rem;margin-bottom:16px}
+        .user-stats{display:flex;gap:12px;align-items:center}
+        .stat{background:rgba(255,255,255,0.05);padding:6px 12px;border-radius:40px;font-size:0.8rem;display:flex;align-items:center;gap:6px}
+        .stat i.fa-star{color:#FFD43B}
     </style>
 </head>
 <body>
     <canvas id="particles"></canvas>
     <div class="container">
         <div class="header">
-            <div class="logo"><i class="fab fa-python"></i> <span>PyPath</span></div>
-            <button class="back-btn" onclick="window.location.href='module.html?module=A1'"><i class="fas fa-arrow-left"></i> Назад</button>
+            <div class="logo"><i class="fab fa-python"></i><span>PyPath</span></div>
+            <div class="user-stats">
+                <div class="stat"><i class="fas fa-star"></i><span id="scoreValue">0</span></div>
+            </div>
+            <button class="back-btn" id="backBtn"><i class="fas fa-arrow-left"></i> К модулю</button>
         </div>
         <div class="test-card">
-            <h1>Тест модуля A1</h1>
-            <div id="questions"></div>
-            <button class="btn" id="submitBtn">Завершить тест</button>
-            <div id="result" class="result" style="display: none;"></div>
+            <h1 id="testTitle"></h1>
+            <div class="progress-bar"><div class="progress-fill" id="testProgress"></div></div>
+            <div>Правильных ответов: <span id="correctCount">0</span></div>
+            <div id="questionContainer"></div>
+            <div class="test-controls">
+                <button class="btn" id="prevBtn">Назад</button>
+                <button class="btn" id="nextBtn">Далее</button>
+                <button class="btn" id="submitBtn" style="display:none">Завершить тест</button>
+            </div>
+            <div id="result"></div>
         </div>
     </div>
     <script>
-        const canvas = document.getElementById('particles');
-        const ctx = canvas.getContext('2d');
-        function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
-        resize(); window.addEventListener('resize', resize);
-        const particles = [];
-        for (let i = 0; i < 80; i++) particles.push({ x: Math.random() * canvas.width, y: Math.random() * canvas.height, r: Math.random() * 2, a: Math.random() * 0.3, vx: (Math.random() - 0.5) * 0.3, vy: (Math.random() - 0.5) * 0.2 });
-        function animate() { ctx.clearRect(0, 0, canvas.width, canvas.height); for (let p of particles) { p.x += p.vx; p.y += p.vy; if (p.x < 0) p.x = canvas.width; if (p.x > canvas.width) p.x = 0; if (p.y < 0) p.y = canvas.height; if (p.y > canvas.height) p.y = 0; ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2); ctx.fillStyle = `rgba(59, 130, 246, ${p.a})`; ctx.fill(); } requestAnimationFrame(animate); }
+        const canvas=document.getElementById('particles'),ctx=canvas.getContext('2d');
+        function resize(){canvas.width=innerWidth;canvas.height=innerHeight}
+        resize();addEventListener('resize',resize);
+        let particles=[];
+        for(let i=0;i<80;i++)particles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*2,a:Math.random()*0.3,vx:(Math.random()-.5)*.2,vy:(Math.random()-.5)*.2});
+        function animate(){ctx.clearRect(0,0,canvas.width,canvas.height);for(let p of particles){p.x+=p.vx;p.y+=p.vy;if(p.x<0)p.x=canvas.width;if(p.x>canvas.width)p.x=0;if(p.y<0)p.y=canvas.height;if(p.y>canvas.height)p.y=0;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle=`rgba(59,130,246,${p.a})`;ctx.fill()}requestAnimationFrame(animate)}
         animate();
-        
-        const questions = [
-            { text: 'Что выведет print(5 + 3)?', options: ['5', '8', '53'], correct: 1 },
-            { text: 'Какой тип данных у "Hello"?', options: ['int', 'str', 'float'], correct: 1 },
-            { text: 'Какая переменная названа правильно?', options: ['1var', 'var_name', 'var-name'], correct: 1 }
-        ];
-        
-        let userAnswers = new Array(questions.length).fill(null);
-        
-        function renderQuestions() {
-            const container = document.getElementById('questions');
-            container.innerHTML = '';
-            questions.forEach((q, idx) => {
-                const div = document.createElement('div');
-                div.className = 'question';
-                div.innerHTML = `<h3>Вопрос ${idx + 1}</h3><p>${q.text}</p>`;
-                q.options.forEach((opt, optIdx) => {
-                    const label = document.createElement('label');
-                    label.className = 'option';
-                    label.innerHTML = `<input type="radio" name="q${idx}" value="${optIdx}"> ${opt}`;
-                    label.onclick = () => {
-                        userAnswers[idx] = optIdx;
-                    };
-                    div.appendChild(label);
-                });
-                container.appendChild(div);
-            });
-        }
-        
-        renderQuestions();
-        
-        document.getElementById('submitBtn').onclick = () => {
-            let correct = 0;
-            questions.forEach((q, idx) => {
-                if (userAnswers[idx] === q.correct) correct++;
-            });
-            const percent = (correct / questions.length) * 100;
-            const passed = percent >= 70;
-            const resultDiv = document.getElementById('result');
-            resultDiv.style.display = 'block';
-            if (passed) {
-                resultDiv.className = 'result success';
-                resultDiv.innerHTML = `<i class="fas fa-trophy"></i> Поздравляем! Вы набрали ${correct}/${questions.length} (${percent}%)<br>Модуль пройден! +50 очков`;
-            } else {
-                resultDiv.className = 'result fail';
-                resultDiv.innerHTML = `<i class="fas fa-sad-tear"></i> Вы набрали ${correct}/${questions.length} (${percent}%)<br>Нужно 70%. Попробуйте ещё раз.`;
-            }
-        };
     </script>
+    <script type="module" src="firebase-config.js"></script>
+    <script type="module" src="script.js"></script>
 </body>
 </html>

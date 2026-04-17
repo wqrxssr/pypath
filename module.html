@@ -6,128 +6,69 @@
     <title>PyPath — Модуль</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: system-ui, sans-serif; background: #0a0a1a; color: white; }
-        #particles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; }
-        body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-image: linear-gradient(rgba(59,130,246,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(59,130,246,0.05) 1px, transparent 1px); background-size: 40px 40px; pointer-events: none; z-index: 0; }
-        .container { position: relative; z-index: 2; max-width: 800px; margin: 0 auto; padding: 20px; }
-        .header { display: flex; justify-content: space-between; align-items: center; background: rgba(10,10,26,0.7); backdrop-filter: blur(16px); border-radius: 60px; padding: 12px 24px; margin-bottom: 40px; border: 1px solid rgba(59,130,246,0.2); }
-        .logo i { color: #FFD43B; }
-        .logo span { background: linear-gradient(135deg,#3B82F6,#FFD43B); -webkit-background-clip:text; background-clip:text; color:transparent; }
-        .back-btn { background: transparent; border: none; color: #94a3b8; cursor: pointer; font-size: 1rem; }
-        .back-btn:hover { color: #3B82F6; }
-        .module-header { text-align: center; margin: 40px 0; }
-        .module-icon { font-size: 3rem; margin-bottom: 16px; }
-        .progress-bar { height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px; margin: 20px 0; }
-        .progress-fill { height: 100%; background: linear-gradient(90deg,#3B82F6,#FFD43B); border-radius: 3px; }
-        .lessons-list { display: flex; flex-direction: column; gap: 12px; margin: 40px 0; }
-        .lesson-card { background: rgba(15,20,35,0.6); backdrop-filter: blur(12px); border-radius: 20px; padding: 20px; border: 1px solid rgba(59,130,246,0.2); cursor: pointer; transition: 0.2s; display: flex; justify-content: space-between; align-items: center; }
-        .lesson-card:hover { transform: translateX(5px); border-color: #3B82F6; }
-        .lesson-title { font-weight: 600; }
-        .lesson-status { font-size: 0.8rem; color: #94a3b8; display: flex; align-items: center; gap: 6px; }
-        .test-btn { background: linear-gradient(135deg,#3B82F6,#1d4ed8); border: none; padding: 14px 28px; border-radius: 40px; color: white; font-weight: bold; cursor: pointer; width: 100%; margin-top: 30px; }
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Inter',system-ui,sans-serif;background:#0a0a1a;color:#fff;min-height:100vh}
+        #particles{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0}
+        body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;background-image:linear-gradient(rgba(59,130,246,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(59,130,246,0.04) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;z-index:0}
+        .container{position:relative;z-index:2;max-width:800px;margin:0 auto;padding:20px}
+        .header{display:flex;justify-content:space-between;align-items:center;background:rgba(15,20,35,0.7);backdrop-filter:blur(16px);border-radius:60px;padding:12px 24px;margin-bottom:32px;border:1px solid rgba(59,130,246,0.2)}
+        .logo i{color:#FFD43B}
+        .logo span{background:linear-gradient(135deg,#3B82F6,#FFD43B);-webkit-background-clip:text;background-clip:text;color:transparent}
+        .back-btn{background:0;border:none;color:#94a3b8;cursor:pointer;font-size:1rem}
+        .back-btn:hover{color:#3B82F6}
+        .module-header{text-align:center;margin:40px 0}
+        .module-icon{font-size:3rem;margin-bottom:16px}
+        .module-icon i{background:linear-gradient(135deg,#3B82F6,#FFD43B);-webkit-background-clip:text;background-clip:text;color:transparent}
+        .progress-bar{height:6px;background:rgba(255,255,255,0.1);border-radius:3px;margin:20px 0}
+        .progress-fill{height:100%;background:linear-gradient(90deg,#3B82F6,#FFD43B);border-radius:3px}
+        .lessons-list{display:flex;flex-direction:column;gap:12px;margin:40px 0}
+        .lesson-card{background:rgba(15,20,35,0.6);backdrop-filter:blur(12px);border-radius:20px;padding:20px;border:1px solid rgba(59,130,246,0.2);cursor:pointer;transition:0.2s;display:flex;justify-content:space-between;align-items:center}
+        .lesson-card:hover{transform:translateX(5px);border-color:#3B82F6}
+        .lesson-card.locked{opacity:0.5;cursor:not-allowed}
+        .lesson-card.locked:hover{transform:none}
+        .lesson-title{font-weight:600}
+        .lesson-status{font-size:0.8rem;color:#94a3b8;margin-top:4px}
+        .test-btn{background:linear-gradient(135deg,#3B82F6,#1d4ed8);border:none;padding:14px 28px;border-radius:40px;color:#fff;font-weight:bold;cursor:pointer;width:100%;margin-top:30px;transition:0.2s}
+        .test-btn:hover{transform:translateY(-2px);box-shadow:0 0 20px rgba(59,130,246,0.5)}
+        .user-stats{display:flex;gap:12px;align-items:center}
+        .stat{background:rgba(255,255,255,0.05);padding:6px 12px;border-radius:40px;font-size:0.8rem;display:flex;align-items:center;gap:6px}
+        .stat i.fa-bolt{color:#FFD43B}
+        .stat i.fa-heart{color:#ff6b6b}
+        .stat i.fa-star{color:#FFD43B}
     </style>
 </head>
 <body>
     <canvas id="particles"></canvas>
     <div class="container">
         <div class="header">
-            <div class="logo"><i class="fab fa-python"></i> <span>PyPath</span></div>
-            <button class="back-btn" onclick="window.location.href='dashboard.html'"><i class="fas fa-arrow-left"></i> Назад</button>
+            <div class="logo"><i class="fab fa-python"></i><span>PyPath</span></div>
+            <div class="user-stats">
+                <div class="stat"><i class="fas fa-bolt"></i><span id="energyValue">5</span></div>
+                <div class="stat"><i class="fas fa-heart"></i><span id="livesValue">5</span></div>
+                <div class="stat"><i class="fas fa-star"></i><span id="scoreValue">0</span></div>
+            </div>
+            <button class="back-btn" id="backBtn"><i class="fas fa-arrow-left"></i> Назад</button>
         </div>
         <div class="module-header">
-            <div class="module-icon" id="moduleIcon"><i class="fas fa-book"></i></div>
-            <h1 id="moduleTitle">Модуль A1</h1>
-            <p id="moduleDesc">Основы Python</p>
-            <div class="progress-bar"><div class="progress-fill" id="moduleProgress" style="width: 0%"></div></div>
-            <span id="progressText">0/14 уроков</span>
+            <div class="module-icon" id="moduleIcon"></div>
+            <h1 id="moduleTitle"></h1>
+            <p id="moduleDesc"></p>
+            <div class="progress-bar"><div class="progress-fill" id="moduleProgress"></div></div>
+            <span id="progressText"></span>
         </div>
         <div class="lessons-list" id="lessonsList"></div>
         <button class="test-btn" id="testBtn">Пройти тест модуля</button>
     </div>
     <script>
-        const canvas = document.getElementById('particles');
-        const ctx = canvas.getContext('2d');
-        function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
-        resize(); window.addEventListener('resize', resize);
-        const particles = [];
-        for (let i = 0; i < 80; i++) particles.push({ x: Math.random() * canvas.width, y: Math.random() * canvas.height, r: Math.random() * 2, a: Math.random() * 0.3, vx: (Math.random() - 0.5) * 0.3, vy: (Math.random() - 0.5) * 0.2 });
-        function animate() { ctx.clearRect(0, 0, canvas.width, canvas.height); for (let p of particles) { p.x += p.vx; p.y += p.vy; if (p.x < 0) p.x = canvas.width; if (p.x > canvas.width) p.x = 0; if (p.y < 0) p.y = canvas.height; if (p.y > canvas.height) p.y = 0; ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2); ctx.fillStyle = `rgba(59, 130, 246, ${p.a})`; ctx.fill(); } requestAnimationFrame(animate); }
+        const canvas=document.getElementById('particles'),ctx=canvas.getContext('2d');
+        function resize(){canvas.width=innerWidth;canvas.height=innerHeight}
+        resize();addEventListener('resize',resize);
+        let particles=[];
+        for(let i=0;i<80;i++)particles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*2,a:Math.random()*0.3,vx:(Math.random()-.5)*.2,vy:(Math.random()-.5)*.2});
+        function animate(){ctx.clearRect(0,0,canvas.width,canvas.height);for(let p of particles){p.x+=p.vx;p.y+=p.vy;if(p.x<0)p.x=canvas.width;if(p.x>canvas.width)p.x=0;if(p.y<0)p.y=canvas.height;if(p.y>canvas.height)p.y=0;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle=`rgba(59,130,246,${p.a})`;ctx.fill()}requestAnimationFrame(animate)}
         animate();
-
-        const urlParams = new URLSearchParams(window.location.search);
-        const moduleId = urlParams.get('module') || 'A1';
-        
-        const moduleNames = {
-            A1: 'Основы Python',
-            A2: 'Условия',
-            B1: 'Циклы',
-            B2: 'Функции',
-            C1: 'Структуры данных',
-            C2: 'Продвинутые темы',
-            C3: 'ООП и финал'
-        };
-        
-        const moduleIcons = {
-            A1: '<i class="fas fa-seedling"></i>',
-            A2: '<i class="fas fa-book"></i>',
-            B1: '<i class="fas fa-bolt"></i>',
-            B2: '<i class="fas fa-rocket"></i>',
-            C1: '<i class="fas fa-gem"></i>',
-            C2: '<i class="fas fa-fire"></i>',
-            C3: '<i class="fas fa-crown"></i>'
-        };
-        
-        document.getElementById('moduleTitle').innerHTML = `Модуль ${moduleId}`;
-        document.getElementById('moduleDesc').innerHTML = moduleNames[moduleId] || 'Обучение Python';
-        document.getElementById('moduleIcon').innerHTML = moduleIcons[moduleId] || '<i class="fas fa-book"></i>';
-        
-        const lessonTitles = {
-            A1: ['Переменные', 'Типы данных', 'print()', 'input()', 'Приведение типов', 'Арифметика', 'Строки', 'f-строки', 'Булевы значения', 'Условия if', 'Практика 1', 'Практика 2', 'Практика 3', 'Повторение'],
-            A2: ['if', 'else', 'elif', 'and/or/not', 'Вложенные условия', 'Тернарный оператор', 'Сравнение строк', 'Сравнение чисел', 'Логические цепочки', 'Практика 1', 'Практика 2', 'Практика 3', 'Практика 4', 'Повторение'],
-            B1: ['for', 'range()', 'while', 'break', 'continue', 'else в циклах', 'Вложенные циклы', 'Бесконечные циклы', 'enumerate', 'Практика 1', 'Практика 2', 'Практика 3', 'Практика 4', 'Повторение'],
-            B2: ['def', 'Аргументы', 'return', 'None', 'Область видимости', '*args', '**kwargs', 'lambda', 'map/filter', 'Рекурсия', 'Документация', 'Практика 1', 'Практика 2', 'Повторение'],
-            C1: ['Списки', 'Методы списков', 'Срезы', 'Словари', 'Методы словарей', 'Множества', 'Кортежи', 'list comprehension', 'dict comprehension', 'Распаковка', 'Копирование', 'Практика 1', 'Практика 2', 'Повторение'],
-            C2: ['enumerate', 'zip', 'sorted', 'any/all', 'Генераторы', 'try/except', 'Работа с файлами', 'Модули', 'datetime', 'random', 'Практика 1', 'Практика 2', 'Практика 3', 'Повторение'],
-            C3: ['Классы', 'self', '__init__', 'Наследование', 'Магические методы', 'property', 'Статические методы', 'Исключения в ООП', 'Финальный проект', 'Практика 1', 'Практика 2', 'Практика 3', 'Практика 4', 'Повторение']
-        };
-        
-        const titles = lessonTitles[moduleId] || lessonTitles.A1;
-        const lessons = [];
-        for (let i = 1; i <= 14; i++) {
-            lessons.push({ id: i, title: `Урок ${i}: ${titles[i-1]}` });
-        }
-        
-        const completedCount = moduleId === 'A1' ? 4 : 0;
-        const progressPercent = (completedCount / 14) * 100;
-        document.getElementById('moduleProgress').style.width = `${progressPercent}%`;
-        document.getElementById('progressText').innerHTML = `${completedCount}/14 уроков`;
-        
-        const container = document.getElementById('lessonsList');
-        container.innerHTML = '';
-        
-        lessons.forEach((lesson, index) => {
-            const isCompleted = index < completedCount;
-            const div = document.createElement('div');
-            div.className = 'lesson-card';
-            div.innerHTML = `
-                <div>
-                    <div class="lesson-title">${lesson.title}</div>
-                    <div class="lesson-status">
-                        ${isCompleted ? '<i class="fas fa-check-circle" style="color:#22c55e"></i> Пройден' : '<i class="fas fa-circle" style="color:#94a3b8"></i> Не пройден'}
-                    </div>
-                </div>
-                <i class="fas fa-chevron-right"></i>
-            `;
-            div.onclick = () => {
-                window.location.href = `lesson.html?module=${moduleId}&lesson=${lesson.id}`;
-            };
-            container.appendChild(div);
-        });
-        
-        document.getElementById('testBtn').onclick = () => {
-            window.location.href = `test.html?module=${moduleId}`;
-        };
     </script>
+    <script type="module" src="firebase-config.js"></script>
+    <script type="module" src="script.js"></script>
 </body>
 </html>

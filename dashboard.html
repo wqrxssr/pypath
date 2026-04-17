@@ -3,42 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PyPath — Обучение Python</title>
+    <title>PyPath — Главная</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: system-ui, sans-serif; background: #0a0a1a; color: white; min-height: 100vh; }
-        #particles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; }
-        body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-image: linear-gradient(rgba(59,130,246,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(59,130,246,0.05) 1px, transparent 1px); background-size: 40px 40px; pointer-events: none; z-index: 0; }
-        .container { position: relative; z-index: 2; max-width: 1200px; margin: 0 auto; padding: 20px; }
-        .header { display: flex; justify-content: space-between; align-items: center; background: rgba(10,10,26,0.7); backdrop-filter: blur(16px); border-radius: 60px; padding: 12px 24px; margin-bottom: 40px; border: 1px solid rgba(59,130,246,0.2); flex-wrap: wrap; gap: 15px; }
-        .logo { font-size: 1.3rem; font-weight: bold; display: flex; align-items: center; gap: 8px; }
-        .logo i { color: #FFD43B; }
-        .logo span { background: linear-gradient(135deg, #3B82F6, #FFD43B); -webkit-background-clip: text; background-clip: text; color: transparent; }
-        .nav { display: flex; gap: 24px; }
-        .nav a { color: #94a3b8; text-decoration: none; transition: 0.2s; cursor: pointer; }
-        .nav a:hover, .nav a.active { color: #3B82F6; }
-        .user-stats { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
-        .stat { background: rgba(255,255,255,0.05); padding: 6px 14px; border-radius: 40px; font-size: 0.85rem; display: flex; align-items: center; gap: 8px; }
-        .avatar { width: 40px; height: 40px; background: linear-gradient(135deg, #3B82F6, #8b5cf6); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-weight: bold; }
-        .hero { text-align: center; margin: 60px 0; }
-        .hero h1 { font-size: 3rem; background: linear-gradient(135deg, #fff, #3B82F6, #FFD43B); -webkit-background-clip: text; background-clip: text; color: transparent; }
-        .hero p { color: #94a3b8; margin-top: 16px; }
-        .timeline { display: flex; justify-content: space-between; background: rgba(15,20,35,0.6); backdrop-filter: blur(12px); border-radius: 60px; padding: 20px 40px; margin: 40px 0; border: 1px solid rgba(59,130,246,0.2); flex-wrap: wrap; gap: 20px; }
-        .timeline-node { text-align: center; flex: 1; min-width: 60px; }
-        .timeline-dot { width: 44px; height: 44px; background: #1a1f2e; border: 2px solid #3B82F6; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 8px; font-weight: bold; }
-        .timeline-node.completed .timeline-dot { background: #22c55e; border-color: #22c55e; }
-        .timeline-node.current .timeline-dot { box-shadow: 0 0 20px #3B82F6; }
-        .modules { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; margin: 40px 0; }
-        .module-card { background: rgba(15,20,35,0.6); backdrop-filter: blur(12px); border-radius: 24px; padding: 24px; border: 1px solid rgba(59,130,246,0.2); transition: 0.3s; cursor: pointer; }
-        .module-card:hover { transform: translateY(-5px); border-color: #3B82F6; box-shadow: 0 20px 40px rgba(59,130,246,0.2); }
-        .module-icon { font-size: 2rem; margin-bottom: 16px; }
-        .module-card h3 { margin-bottom: 8px; }
-        .progress-bar { height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px; margin: 16px 0; }
-        .progress-fill { width: 0%; height: 100%; background: linear-gradient(90deg, #3B82F6, #FFD43B); border-radius: 2px; }
-        .btn { background: linear-gradient(135deg, #3B82F6, #1d4ed8); border: none; padding: 12px 28px; border-radius: 40px; color: white; font-weight: bold; cursor: pointer; transition: 0.2s; }
-        .btn:hover { transform: translateY(-2px); box-shadow: 0 0 20px rgba(59,130,246,0.5); }
-        @media (max-width: 768px) { .nav { display: none; } .hero h1 { font-size: 2rem; } .timeline { flex-wrap: wrap; justify-content: center; } }
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Inter',system-ui,sans-serif;background:#0a0a1a;color:#fff;min-height:100vh}
+        #particles{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0}
+        body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;background-image:linear-gradient(rgba(59,130,246,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(59,130,246,0.04) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;z-index:0}
+        .container{position:relative;z-index:2;max-width:1280px;margin:0 auto;padding:20px}
+        .header{display:flex;justify-content:space-between;align-items:center;background:rgba(15,20,35,0.7);backdrop-filter:blur(16px);border-radius:60px;padding:12px 24px;margin-bottom:32px;border:1px solid rgba(59,130,246,0.2);flex-wrap:wrap;gap:16px}
+        .logo{font-size:1.3rem;font-weight:bold;display:flex;align-items:center;gap:8px}
+        .logo i{color:#FFD43B}
+        .logo span{background:linear-gradient(135deg,#3B82F6,#FFD43B);-webkit-background-clip:text;background-clip:text;color:transparent}
+        .user-stats{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+        .stat{background:rgba(255,255,255,0.05);padding:8px 16px;border-radius:40px;display:flex;align-items:center;gap:8px;cursor:help;position:relative}
+        .stat i{font-size:0.9rem}
+        .stat i.fa-bolt{color:#FFD43B}
+        .stat i.fa-heart{color:#ff6b6b}
+        .stat i.fa-star{color:#FFD43B}
+        .stat i.fa-calendar-alt{color:#FFD43B}
+        .stat .value{font-weight:700;color:#fff}
+        .stat .tooltip{position:absolute;bottom:100%;left:50%;transform:translateX(-50%);background:#1e293b;color:#94a3b8;font-size:0.7rem;padding:4px 8px;border-radius:8px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity 0.2s;margin-bottom:8px}
+        .stat:hover .tooltip{opacity:1}
+        .avatar{width:40px;height:40px;background:linear-gradient(135deg,#3B82F6,#8b5cf6);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;font-weight:bold}
+        .hero{text-align:center;margin:40px 0}
+        .hero h1{font-size:2.5rem;background:linear-gradient(135deg,#fff,#3B82F6,#FFD43B);-webkit-background-clip:text;background-clip:text;color:transparent}
+        .hero p{color:#94a3b8;margin-top:16px}
+        .resources{display:flex;gap:20px;margin-bottom:32px;flex-wrap:wrap}
+        .resource-card{background:rgba(15,20,35,0.6);backdrop-filter:blur(12px);border-radius:24px;padding:20px;flex:1;min-width:200px;text-align:center;border:1px solid rgba(59,130,246,0.2)}
+        .resource-card h3{margin-bottom:12px}
+        .resource-card .value{font-size:2rem;font-weight:700;margin:8px 0}
+        .btn-small{background:rgba(59,130,246,0.2);border:1px solid #3B82F6;padding:8px 16px;border-radius:40px;color:#fff;cursor:pointer;margin-top:12px}
+        .daily-quests{background:rgba(15,20,35,0.6);backdrop-filter:blur(12px);border-radius:24px;padding:24px;margin-bottom:32px;border:1px solid rgba(59,130,246,0.2)}
+        .quest-item{display:flex;justify-content:space-between;align-items:center;padding:12px;border-bottom:1px solid rgba(255,255,255,0.05)}
+        .modules-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:24px;margin:32px 0}
+        .module-card{background:rgba(15,20,35,0.6);backdrop-filter:blur(12px);border-radius:24px;padding:24px;border:1px solid rgba(59,130,246,0.2);transition:all 0.3s;cursor:pointer}
+        .module-card:hover{transform:translateY(-4px);border-color:#3B82F6;box-shadow:0 10px 30px rgba(59,130,246,0.2)}
+        .module-card.locked{opacity:0.5;cursor:not-allowed}
+        .module-icon{font-size:2rem;margin-bottom:16px}
+        .progress-bar{height:4px;background:rgba(255,255,255,0.1);border-radius:2px;margin:16px 0}
+        .progress-fill{height:100%;background:linear-gradient(90deg,#3B82F6,#FFD43B);border-radius:2px}
+        .btn{background:linear-gradient(135deg,#3B82F6,#1d4ed8);border:none;padding:12px 28px;border-radius:40px;color:#fff;font-weight:bold;cursor:pointer;margin:0 auto 40px;display:block}
+        @media(max-width:768px){.hero h1{font-size:1.8rem}.resources{flex-direction:column}}
     </style>
 </head>
 <body>
@@ -46,57 +52,33 @@
     <div class="container">
         <div class="header">
             <div class="logo"><i class="fab fa-python"></i><span>PyPath</span></div>
-            <div class="nav"><a href="dashboard.html" class="active">Модули</a><a href="#">Песочница</a><a href="#">Рейтинг</a></div>
             <div class="user-stats">
-                <div class="stat"><i class="fas fa-bolt" style="color:#FFD43B"></i> <span id="energyValue">5</span>/5</div>
-                <div class="stat"><i class="fas fa-heart" style="color:#ff6b6b"></i> <span id="livesValue">5</span>/5</div>
-                <div class="stat"><i class="fas fa-star" style="color:#FFD43B"></i> <span id="scoreValue">0</span></div>
-                <div class="stat" id="streakBtn" style="cursor:pointer"><i class="fas fa-fire" style="color:#FFD43B"></i> <span id="streakValue">0</span></div>
+                <div class="stat"><i class="fas fa-bolt"></i><span class="value" id="energyValue">5</span>/5<span class="tooltip">Энергия: тратится на уроки. Восстановление: 1 в час</span></div>
+                <div class="stat"><i class="fas fa-heart"></i><span class="value" id="livesValue">5</span>/5<span class="tooltip">Жизни: теряются при ошибках. Восстановление: +1 за урок, +1/30мин</span></div>
+                <div class="stat"><i class="fas fa-star"></i><span class="value" id="scoreValue">0</span><span class="tooltip">Очки: даются за прохождение уроков. Влияют на ранг</span></div>
+                <div class="stat" id="streakBtn" style="cursor:pointer"><i class="fas fa-calendar-alt"></i><span class="value" id="streakValue">0</span><span class="tooltip">Стрейк: дней подряд с пройденным уроком</span></div>
                 <div class="avatar" id="avatarBtn">M</div>
             </div>
         </div>
-        <div class="hero"><h1>Освой <span style="background:linear-gradient(135deg,#3B82F6,#FFD43B);-webkit-background-clip:text;background-clip:text;color:transparent;">Python</span> с нуля</h1><p>7 модулей, 99 уроков, интерактивные задания</p></div>
-        <div class="timeline">
-            <div class="timeline-node completed"><div class="timeline-dot"><i class="fas fa-check"></i></div><div>A1</div></div>
-            <div class="timeline-node current"><div class="timeline-dot">2</div><div>A2</div></div>
-            <div class="timeline-node"><div class="timeline-dot">3</div><div>B1</div></div>
-            <div class="timeline-node"><div class="timeline-dot">4</div><div>B2</div></div>
-            <div class="timeline-node"><div class="timeline-dot">5</div><div>C1</div></div>
-            <div class="timeline-node"><div class="timeline-dot">6</div><div>C2</div></div>
-            <div class="timeline-node"><div class="timeline-dot">7</div><div>C3</div></div>
+        <div class="hero"><h1>Освой Python с нуля до профи</h1><p>7 модулей, 99 уроков, интерактивные задания</p></div>
+        <div class="resources">
+            <div class="resource-card"><h3><i class="fas fa-bolt"></i> Энергия</h3><div class="value" id="energyValue2">5</div><div>Восстановление: 1 в час</div><div id="nextEnergyTime"></div><button class="btn-small" id="buyEnergyBtn">Купить энергию (50 ⭐)</button></div>
+            <div class="resource-card"><h3><i class="fas fa-heart"></i> Жизни</h3><div class="value" id="livesValue2">5</div><div>Восстановление: +1 за урок, +1/30мин</div><button class="btn-small" id="buyLifeBtn">Купить жизнь (100 ⭐)</button></div>
         </div>
-        <div class="modules" id="modulesGrid"></div>
-        <button class="btn" id="continueBtn" style="display:block; margin:0 auto 60px;"><i class="fas fa-play"></i> Продолжить обучение</button>
+        <div class="daily-quests"><h3><i class="fas fa-calendar-day"></i> Ежедневные задания</h3><div id="questsList"></div></div>
+        <div class="modules-grid" id="modulesGrid"></div>
+        <button class="btn" id="continueBtn"><i class="fas fa-play"></i> Продолжить обучение</button>
     </div>
     <script>
-        const canvas = document.getElementById('particles');
-        const ctx = canvas.getContext('2d');
-        function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
-        resize(); window.addEventListener('resize', resize);
-        const particles = [];
-        for (let i = 0; i < 80; i++) particles.push({ x: Math.random() * canvas.width, y: Math.random() * canvas.height, r: Math.random() * 2, a: Math.random() * 0.3, vx: (Math.random() - 0.5) * 0.3, vy: (Math.random() - 0.5) * 0.2 });
-        function animate() { ctx.clearRect(0, 0, canvas.width, canvas.height); for (let p of particles) { p.x += p.vx; p.y += p.vy; if (p.x < 0) p.x = canvas.width; if (p.x > canvas.width) p.x = 0; if (p.y < 0) p.y = canvas.height; if (p.y > canvas.height) p.y = 0; ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2); ctx.fillStyle = `rgba(59, 130, 246, ${p.a})`; ctx.fill(); } requestAnimationFrame(animate); }
+        const canvas=document.getElementById('particles'),ctx=canvas.getContext('2d');
+        function resize(){canvas.width=innerWidth;canvas.height=innerHeight}
+        resize();addEventListener('resize',resize);
+        let particles=[];
+        for(let i=0;i<80;i++)particles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*2,a:Math.random()*0.3,vx:(Math.random()-.5)*.2,vy:(Math.random()-.5)*.2});
+        function animate(){ctx.clearRect(0,0,canvas.width,canvas.height);for(let p of particles){p.x+=p.vx;p.y+=p.vy;if(p.x<0)p.x=canvas.width;if(p.x>canvas.width)p.x=0;if(p.y<0)p.y=canvas.height;if(p.y>canvas.height)p.y=0;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle=`rgba(59,130,246,${p.a})`;ctx.fill()}requestAnimationFrame(animate)}
         animate();
-        const modules = [
-            { id: 'A1', name: 'Основы Python', icon: 'fas fa-seedling', progress: 100, lessons: 14, completed: 14, locked: false },
-            { id: 'A2', name: 'Условия', icon: 'fas fa-book', progress: 30, lessons: 14, completed: 4, locked: false },
-            { id: 'B1', name: 'Циклы', icon: 'fas fa-bolt', progress: 0, lessons: 14, completed: 0, locked: false },
-            { id: 'B2', name: 'Функции', icon: 'fas fa-rocket', progress: 0, lessons: 14, completed: 0, locked: false },
-            { id: 'C1', name: 'Структуры данных', icon: 'fas fa-gem', progress: 0, lessons: 14, completed: 0, locked: false },
-            { id: 'C2', name: 'Продвинутые темы', icon: 'fas fa-fire', progress: 0, lessons: 14, completed: 0, locked: false },
-            { id: 'C3', name: 'ООП и финал', icon: 'fas fa-crown', progress: 0, lessons: 14, completed: 0, locked: false }
-        ];
-        const container = document.getElementById('modulesGrid');
-        modules.forEach(m => {
-            const card = document.createElement('div');
-            card.className = `module-card ${m.locked ? 'locked' : ''}`;
-            card.innerHTML = `<div class="module-icon"><i class="${m.icon}"></i></div><h3>Модуль ${m.id}</h3><p>${m.name}</p><div class="progress-bar"><div class="progress-fill" style="width: ${m.progress}%"></div></div><span>${m.completed}/${m.lessons} уроков</span>`;
-            if (!m.locked) card.onclick = () => window.location.href = `module.html?module=${m.id}`;
-            container.appendChild(card);
-        });
-        document.getElementById('continueBtn').onclick = () => window.location.href = 'module.html?module=A2';
-        document.getElementById('avatarBtn').onclick = () => window.location.href = 'profile.html';
-        document.getElementById('streakBtn').onclick = () => alert('Ваш стрейк: 0 дней. Пройдите урок сегодня!');
     </script>
+    <script type="module" src="firebase-config.js"></script>
+    <script type="module" src="script.js"></script>
 </body>
 </html>
