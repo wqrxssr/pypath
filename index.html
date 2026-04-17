@@ -2,35 +2,34 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PyPath — Вход</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>PyPath — Изучай Python играя</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
     <div class="auth-container">
         <div class="auth-card">
             <h1>🐍 PyPath</h1>
-            <p class="subtitle">Изучай Python играя</p>
+            <p style="color: rgba(255,255,255,0.7); margin-bottom: 8px;">Изучай Python играя</p>
             
             <div class="auth-tabs">
-                <button class="auth-tab active" data-tab="login">Вход</button>
-                <button class="auth-tab" data-tab="register">Регистрация</button>
+                <button class="auth-tab active" data-tab="login"><i class="fas fa-sign-in-alt"></i> Вход</button>
+                <button class="auth-tab" data-tab="register"><i class="fas fa-user-plus"></i> Регистрация</button>
             </div>
 
-            <!-- Форма входа -->
             <form id="loginForm" class="auth-form active">
                 <input type="email" id="loginEmail" placeholder="Email" required>
                 <input type="password" id="loginPassword" placeholder="Пароль" required>
-                <button type="submit" class="btn-primary">Войти</button>
-                <a href="#" id="forgotPassword" class="forgot-link">Забыли пароль?</a>
+                <button type="submit" class="btn-primary"><i class="fas fa-arrow-right"></i> Войти</button>
+                <a href="#" id="forgotPassword" style="color: rgba(255,255,255,0.6); font-size: 0.85rem; text-decoration: none;">Забыли пароль?</a>
             </form>
 
-            <!-- Форма регистрации -->
             <form id="registerForm" class="auth-form">
                 <input type="email" id="regEmail" placeholder="Email" required>
                 <input type="password" id="regPassword" placeholder="Пароль (мин. 6 символов)" required>
                 <input type="password" id="regConfirm" placeholder="Повторите пароль" required>
-                <button type="submit" class="btn-primary">Зарегистрироваться</button>
+                <button type="submit" class="btn-primary"><i class="fas fa-user-check"></i> Зарегистрироваться</button>
             </form>
 
             <div id="authMessage" class="auth-message"></div>
