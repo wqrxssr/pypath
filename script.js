@@ -34,7 +34,7 @@ async function saveUserData() {
     await setDoc(userRef, userData, { merge: true });
 }
 
-// ============ ФУНКЦИЯ ОБНОВЛЕНИЯ UI (ПЕРЕНЕСЕНА ВВЕРХ) ============
+// ============ ФУНКЦИЯ ОБНОВЛЕНИЯ UI ============
 function updateUI() {
     const energyEl = document.getElementById('energyValue');
     const livesEl = document.getElementById('livesValue');
@@ -620,16 +620,12 @@ if (window.location.pathname.includes('dashboard.html')) {
         
         document.getElementById('avatarBtn').onclick = () => window.location.href = 'profile.html';
         document.getElementById('streakBtn').onclick = () => alert(`Ваш стрейк: ${userData.streak || 0} дней`);
-        document.getElementById('logoutBtn').onclick = async () => {
-            await signOut(auth);
-            window.location.href = 'index.html';
-        };
+        // logoutBtn удалён — его нет в dashboard.html
         document.getElementById('continueBtn').onclick = () => {
             const next = findNextLesson();
             window.location.href = `lesson.html?module=${next.module}&lesson=${next.id}`;
         };
         
-        // ============ КНОПКИ ПОКУПКИ (С ПРОВЕРКОЙ СУЩЕСТВОВАНИЯ) ============
         const buyEnergyBtn = document.getElementById('buyEnergyBtn');
         const buyLifeBtn = document.getElementById('buyLifeBtn');
         
@@ -847,9 +843,9 @@ if (window.location.pathname.includes('lesson.html')) {
             
             if (task.type === 'code') {
                 container.innerHTML = `
-                    <p>${task.description}</p>
+                    <div class="task-description">${task.description}</div>
                     <textarea id="codeAnswer" rows="6" placeholder="Напишите код здесь..."></textarea>
-                    <button id="checkBtn" class="btn-check">Проверить</button>
+                    <button class="btn-check" id="checkBtn">Проверить</button>
                 `;
                 const checkBtn = document.getElementById('checkBtn');
                 if (checkBtn) checkBtn.onclick = () => checkCode(task.validator);
@@ -857,15 +853,15 @@ if (window.location.pathname.includes('lesson.html')) {
                 container.innerHTML = `
                     <pre>${task.code}</pre>
                     <input type="text" id="fillAnswer" placeholder="Вставьте пропущенное">
-                    <button id="checkBtn" class="btn-check">Проверить</button>
+                    <button class="btn-check" id="checkBtn">Проверить</button>
                 `;
                 const checkBtn = document.getElementById('checkBtn');
                 if (checkBtn) checkBtn.onclick = () => checkFill(task.correct);
             } else if (task.type === 'explain') {
                 container.innerHTML = `
-                    <p>${task.question}</p>
+                    <div class="task-description">${task.question}</div>
                     <div id="explainOptions"></div>
-                    <button id="checkBtn" class="btn-check">Проверить</button>
+                    <button class="btn-check" id="checkBtn">Проверить</button>
                 `;
                 const optionsDiv = document.getElementById('explainOptions');
                 task.options.forEach((opt, idx) => {
@@ -877,9 +873,9 @@ if (window.location.pathname.includes('lesson.html')) {
                 if (checkBtn) checkBtn.onclick = () => checkExplain(task.correct);
             } else if (task.type === 'checkbox') {
                 container.innerHTML = `
-                    <p>${task.question}</p>
+                    <div class="task-description">${task.question}</div>
                     <div id="checkboxOptions"></div>
-                    <button id="checkBtn" class="btn-check">Проверить</button>
+                    <button class="btn-check" id="checkBtn">Проверить</button>
                 `;
                 const optionsDiv = document.getElementById('checkboxOptions');
                 task.options.forEach((opt, idx) => {
@@ -891,9 +887,9 @@ if (window.location.pathname.includes('lesson.html')) {
                 if (checkBtn) checkBtn.onclick = () => checkCheckbox(task.correct);
             } else if (task.type === 'puzzle') {
                 container.innerHTML = `
-                    <p>Соберите код в правильном порядке (перетащите карточки):</p>
+                    <div class="task-description">Соберите код в правильном порядке (перетащите карточки):</div>
                     <div id="puzzleContainer"></div>
-                    <button id="checkBtn" class="btn-check">Проверить</button>
+                    <button class="btn-check" id="checkBtn">Проверить</button>
                 `;
                 setupPuzzle(task.code);
                 const checkBtn = document.getElementById('checkBtn');
@@ -1064,7 +1060,6 @@ if (window.location.pathname.includes('lesson.html')) {
         }
         updateUI();
         
-        // Подсказка
         const hintBtn = document.getElementById('hintBtn');
         if (hintBtn) {
             hintBtn.onclick = async () => {
@@ -1119,15 +1114,17 @@ if (window.location.pathname.includes('test.html')) {
             const container = document.getElementById('questionContainer');
             if (!container) return;
             container.innerHTML = `
-                <h3>Вопрос ${index + 1} из ${questions.length}</h3>
-                <p>${q.text}</p>
-                <div class="options">
-                    ${q.options.map((opt, i) => `
-                        <label class="option">
-                            <input type="radio" name="answer" value="${i}" ${userAnswers[index] === i ? 'checked' : ''}>
-                            ${opt}
-                        </label>
-                    `).join('')}
+                <div class="question">
+                    <h3>Вопрос ${index + 1} из ${questions.length}</h3>
+                    <p>${q.text}</p>
+                    <div class="options">
+                        ${q.options.map((opt, i) => `
+                            <label class="option">
+                                <input type="radio" name="answer" value="${i}" ${userAnswers[index] === i ? 'checked' : ''}>
+                                ${opt}
+                            </label>
+                        `).join('')}
+                    </div>
                 </div>
             `;
             const prevBtn = document.getElementById('prevBtn');
@@ -1249,7 +1246,6 @@ if (window.location.pathname.includes('profile.html')) {
         const userSnap = await getDoc(userRef);
         userData = userSnap.data();
         
-        // Аватар из первой буквы email
         const avatarEl = document.getElementById('userAvatar');
         if (avatarEl && user.email) {
             const firstLetter = user.email.charAt(0).toUpperCase();

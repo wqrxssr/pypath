@@ -6,36 +6,296 @@
     <title>PyPath — Урок</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        *{margin:0;padding:0;box-sizing:border-box}
-        body{font-family:'Inter',system-ui,sans-serif;background:#0a0a1a;color:#fff;min-height:100vh}
-        #particles{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0}
-        body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;background-image:linear-gradient(rgba(59,130,246,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(59,130,246,0.04) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;z-index:0}
-        .container{position:relative;z-index:2;max-width:1000px;margin:0 auto;padding:20px}
-        .header{display:flex;justify-content:space-between;align-items:center;background:rgba(15,20,35,0.7);backdrop-filter:blur(16px);border-radius:60px;padding:12px 24px;margin-bottom:32px;border:1px solid rgba(59,130,246,0.2)}
-        .logo i{color:#FFD43B}
-        .logo span{background:linear-gradient(135deg,#3B82F6,#FFD43B);-webkit-background-clip:text;background-clip:text;color:transparent}
-        .back-btn{background:0;border:none;color:#94a3b8;cursor:pointer;font-size:1rem}
-        .back-btn:hover{color:#3B82F6}
-        .lesson-card{background:rgba(15,20,35,0.6);backdrop-filter:blur(12px);border-radius:28px;padding:32px;margin-bottom:24px;border:1px solid rgba(59,130,246,0.2)}
-        .theory{background:#1a1f2e;border-radius:20px;padding:20px;margin:20px 0;line-height:1.6}
-        .theory code{background:#0f1420;padding:2px 6px;border-radius:6px;color:#FFD43B}
-        .task-area{margin-top:24px}
-        textarea{width:100%;padding:12px;background:#0f1420;border:1px solid #3B82F6;border-radius:12px;color:#fff;font-family:monospace;margin:10px 0}
-        input{width:100%;padding:12px;background:#0f1420;border:1px solid #3B82F6;border-radius:12px;color:#fff;margin:10px 0}
-        .btn-check{background:linear-gradient(135deg,#3B82F6,#1d4ed8);border:none;padding:12px 24px;border-radius:40px;color:#fff;cursor:pointer;margin-top:12px}
-        .btn-check:hover{transform:translateY(-2px);box-shadow:0 0 15px rgba(59,130,246,0.4)}
-        .puzzle-piece{background:#1a1f2e;padding:12px;margin:8px 0;border-radius:12px;cursor:grab;text-align:center;border:1px solid rgba(59,130,246,0.3)}
-        .puzzle-piece:active{cursor:grabbing}
-        .message{margin-top:20px;padding:12px;border-radius:12px;text-align:center}
-        .success{background:rgba(34,197,94,0.2);border:1px solid #22c55e;color:#22c55e}
-        .error{background:rgba(239,68,68,0.2);border:1px solid #ef4444;color:#ef4444}
-        .user-stats{display:flex;gap:12px;align-items:center}
-        .stat{background:rgba(255,255,255,0.05);padding:6px 12px;border-radius:40px;font-size:0.8rem;display:flex;align-items:center;gap:6px}
-        .stat i.fa-bolt{color:#FFD43B}
-        .stat i.fa-heart{color:#ff6b6b}
-        .stat i.fa-star{color:#FFD43B}
-        .explain-options label{display:block;margin:8px 0;padding:10px;background:#1a1f2e;border-radius:12px;cursor:pointer}
-        .checkbox-options label{display:block;margin:8px 0;padding:10px;background:#1a1f2e;border-radius:12px;cursor:pointer}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            background: #0a0a1a;
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        #particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                repeating-linear-gradient(0deg, rgba(59, 130, 246, 0.04) 0px, rgba(59, 130, 246, 0.04) 1px, transparent 1px, transparent 40px),
+                repeating-linear-gradient(90deg, rgba(59, 130, 246, 0.04) 0px, rgba(59, 130, 246, 0.04) 1px, transparent 1px, transparent 40px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            position: relative;
+            z-index: 2;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(15, 20, 35, 0.7);
+            backdrop-filter: blur(16px);
+            border-radius: 60px;
+            padding: 12px 24px;
+            margin-bottom: 32px;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+
+        .logo i {
+            color: #FFD43B;
+        }
+
+        .logo span {
+            background: linear-gradient(135deg, #3B82F6, #FFD43B);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .back-btn {
+            background: transparent;
+            border: none;
+            color: #94a3b8;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: color 0.2s;
+        }
+
+        .back-btn:hover {
+            color: #3B82F6;
+        }
+
+        .lesson-card {
+            background: rgba(15, 20, 35, 0.6);
+            backdrop-filter: blur(12px);
+            border-radius: 28px;
+            padding: 32px;
+            margin-bottom: 24px;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+
+        .lesson-card h1 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #fff, #3B82F6, #FFD43B);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        /* Теория с подсветкой кода */
+        .theory {
+            background: #0f1420;
+            border-radius: 20px;
+            padding: 24px;
+            margin: 20px 0;
+            line-height: 1.6;
+            border-left: 4px solid #3B82F6;
+        }
+
+        .theory p {
+            margin-bottom: 16px;
+            color: #e2e8f0;
+        }
+
+        /* Блок кода с подсветкой */
+        pre {
+            background: #0a0e17;
+            padding: 16px;
+            border-radius: 16px;
+            overflow-x: auto;
+            margin: 16px 0;
+            font-family: 'Fira Code', 'Courier New', monospace;
+            font-size: 0.9rem;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+
+        code {
+            font-family: 'Fira Code', 'Courier New', monospace;
+        }
+
+        /* Цвета для подсветки синтаксиса */
+        .keyword { color: #FFD43B; font-weight: 600; }
+        .function { color: #60a5fa; }
+        .string { color: #22c55e; }
+        .number { color: #f97316; }
+        .comment { color: #64748b; font-style: italic; }
+        .operator { color: #c084fc; }
+
+        /* Задание */
+        .task-area {
+            margin-top: 24px;
+            background: #0f1420;
+            border-radius: 20px;
+            padding: 24px;
+        }
+
+        .task-description {
+            color: #e2e8f0;
+            margin-bottom: 16px;
+            font-weight: 500;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 14px;
+            background: #0a0e17;
+            border: 1px solid #3B82F6;
+            border-radius: 12px;
+            color: #fff;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9rem;
+            resize: vertical;
+            transition: all 0.2s;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #FFD43B;
+            box-shadow: 0 0 10px rgba(255, 212, 59, 0.3);
+        }
+
+        input {
+            width: 100%;
+            padding: 14px;
+            background: #0a0e17;
+            border: 1px solid #3B82F6;
+            border-radius: 12px;
+            color: #fff;
+            font-family: 'Fira Code', monospace;
+            margin: 10px 0;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #FFD43B;
+        }
+
+        .btn-check {
+            background: linear-gradient(135deg, #3B82F6, #1d4ed8);
+            border: none;
+            padding: 12px 28px;
+            border-radius: 40px;
+            color: #fff;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.2s;
+        }
+
+        .btn-check:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+        }
+
+        .puzzle-piece {
+            background: #1a1f2e;
+            padding: 14px;
+            margin: 10px 0;
+            border-radius: 12px;
+            cursor: grab;
+            text-align: center;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            transition: all 0.2s;
+        }
+
+        .puzzle-piece:hover {
+            border-color: #3B82F6;
+            background: rgba(59, 130, 246, 0.1);
+        }
+
+        .puzzle-piece:active {
+            cursor: grabbing;
+        }
+
+        .message {
+            margin-top: 20px;
+            padding: 14px;
+            border-radius: 12px;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .success {
+            background: rgba(34, 197, 94, 0.2);
+            border: 1px solid #22c55e;
+            color: #22c55e;
+        }
+
+        .error {
+            background: rgba(239, 68, 68, 0.2);
+            border: 1px solid #ef4444;
+            color: #ef4444;
+        }
+
+        .user-stats {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .stat {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 6px 14px;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 500;
+        }
+
+        .stat i.fa-bolt { color: #FFD43B; }
+        .stat i.fa-heart { color: #ff6b6b; }
+        .stat i.fa-star { color: #FFD43B; }
+
+        .explain-options label, .checkbox-options label {
+            display: block;
+            margin: 10px 0;
+            padding: 12px;
+            background: #1a1f2e;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 1px solid transparent;
+        }
+
+        .explain-options label:hover, .checkbox-options label:hover {
+            border-color: #3B82F6;
+            background: rgba(59, 130, 246, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .lesson-card {
+                padding: 20px;
+            }
+            .lesson-card h1 {
+                font-size: 1.4rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -58,13 +318,83 @@
         </div>
     </div>
     <script>
-        const canvas=document.getElementById('particles'),ctx=canvas.getContext('2d');
-        function resize(){canvas.width=innerWidth;canvas.height=innerHeight}
-        resize();addEventListener('resize',resize);
-        let particles=[];
-        for(let i=0;i<80;i++)particles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*2,a:Math.random()*0.3,vx:(Math.random()-.5)*.2,vy:(Math.random()-.5)*.2});
-        function animate(){ctx.clearRect(0,0,canvas.width,canvas.height);for(let p of particles){p.x+=p.vx;p.y+=p.vy;if(p.x<0)p.x=canvas.width;if(p.x>canvas.width)p.x=0;if(p.y<0)p.y=canvas.height;if(p.y>canvas.height)p.y=0;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle=`rgba(59,130,246,${p.a})`;ctx.fill()}requestAnimationFrame(animate)}
+        // ============ ПОДСВЕТКА КОДА ============
+        function highlightCode(code) {
+            // Ключевые слова Python
+            const keywords = ['def', 'if', 'else', 'elif', 'for', 'while', 'return', 'import', 'from', 'class', 'try', 'except', 'finally', 'with', 'as', 'pass', 'break', 'continue', 'lambda', 'and', 'or', 'not', 'is', 'None', 'True', 'False', 'in', 'global', 'nonlocal'];
+            
+            // Экранируем HTML
+            let escaped = code.replace(/[&<>]/g, function(m) {
+                if (m === '&') return '&amp;';
+                if (m === '<') return '&lt;';
+                if (m === '>') return '&gt;';
+                return m;
+            });
+            
+            // Подсветка комментариев
+            escaped = escaped.replace(/(#.*$)/gm, '<span class="comment">$1</span>');
+            
+            // Подсветка строк
+            escaped = escaped.replace(/(["'])(?:(?=(\\?))\2.)*?\1/g, '<span class="string">$&</span>');
+            
+            // Подсветка чисел
+            escaped = escaped.replace(/\b(\d+(?:\.\d+)?)\b/g, '<span class="number">$1</span>');
+            
+            // Подсветка ключевых слов
+            keywords.forEach(keyword => {
+                const regex = new RegExp(`\\b(${keyword})\\b`, 'g');
+                escaped = escaped.replace(regex, '<span class="keyword">$1</span>');
+            });
+            
+            // Подсветка функций (слова после def или перед скобками)
+            escaped = escaped.replace(/\b([a-zA-Z_][a-zA-Z0-9_]*)(?=\()/g, '<span class="function">$1</span>');
+            
+            return escaped;
+        }
+        
+        function applyCodeHighlighting() {
+            const codeBlocks = document.querySelectorAll('.theory pre, .theory code');
+            codeBlocks.forEach(block => {
+                if (block.textContent && !block.classList.contains('highlighted')) {
+                    const originalText = block.textContent;
+                    block.innerHTML = highlightCode(originalText);
+                    block.classList.add('highlighted');
+                }
+            });
+        }
+        
+        // Наблюдатель за изменениями в теории
+        const observer = new MutationObserver(() => {
+            applyCodeHighlighting();
+        });
+        
+        // Частицы
+        const canvas = document.getElementById('particles'), ctx = canvas.getContext('2d');
+        function resize() { canvas.width = innerWidth; canvas.height = innerHeight; }
+        resize(); addEventListener('resize', resize);
+        let particles = [];
+        for (let i = 0; i < 80; i++) particles.push({ x: Math.random() * canvas.width, y: Math.random() * canvas.height, r: Math.random() * 2, a: Math.random() * 0.3, vx: (Math.random() - 0.5) * 0.2, vy: (Math.random() - 0.5) * 0.2 });
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let p of particles) {
+                p.x += p.vx; p.y += p.vy;
+                if (p.x < 0) p.x = canvas.width;
+                if (p.x > canvas.width) p.x = 0;
+                if (p.y < 0) p.y = canvas.height;
+                if (p.y > canvas.height) p.y = 0;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(59, 130, 246, ${p.a})`;
+                ctx.fill();
+            }
+            requestAnimationFrame(animate);
+        }
         animate();
+        
+        // Запускаем подсветку после загрузки теории
+        if (document.getElementById('theoryContent')) {
+            observer.observe(document.getElementById('theoryContent'), { childList: true, subtree: true });
+        }
     </script>
     <script type="module" src="firebase-config.js"></script>
     <script type="module" src="script.js"></script>
