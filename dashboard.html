@@ -3,32 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>PyPath — Панель обучения</title>
+    <title>PyPath — Освой Python</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
     <div class="container">
-        <div class="top-bar">
+        <!-- Шапка с блюром при скролле -->
+        <header class="header" id="header">
             <div class="logo">
-                <i class="fas fa-code"></i> PyPath
+                <div class="logo-icon">&lt;/&gt;<span class="logo-p">P</span></div>
+                <span class="logo-text">PyPath</span>
             </div>
-            <div class="stats-bar">
-                <div class="stat"><i class="fas fa-bolt"></i> <span id="energyValue">5</span>/5</div>
-                <div class="stat"><i class="fas fa-heart"></i> <span id="livesValue">5</span>/5</div>
-                <div class="stat"><i class="fas fa-star"></i> <span id="scoreValue">0</span></div>
-                <div class="stat" id="streakBtn" style="cursor: pointer;"><i class="fas fa-fire"></i> <span id="streakValue">0</span></div>
+            
+            <nav class="nav">
+                <a href="#" class="nav-link active">Модули</a>
+                <a href="#" class="nav-link">Песочница</a>
+                <a href="#" class="nav-link">Рейтинг</a>
+                <a href="#" class="nav-link">Сообщество</a>
+            </nav>
+            
+            <div class="user-block">
+                <div class="xp-bar">
+                    <span class="xp-label">XP</span>
+                    <div class="xp-progress">
+                        <div class="xp-fill" style="width: 65%;"></div>
+                    </div>
+                    <span class="xp-value">650/1000</span>
+                </div>
+                <div class="avatar" id="avatarBtn">
+                    <span class="avatar-initials">M</span>
+                </div>
+                <button class="btn-continue" id="continueLessonBtn">
+                    <i class="fas fa-bolt"></i> Продолжить урок
+                </button>
             </div>
-            <div class="actions-bar">
-                <button id="themeToggle" class="icon-btn"><i class="fas fa-moon"></i> <span>Тема</span></button>
-                <button id="soundToggle" class="icon-btn"><i class="fas fa-volume-up"></i> <span>Звук</span></button>
-                <button id="profileBtn" class="icon-btn"><i class="fas fa-user"></i> <span>Профиль</span></button>
-                <button id="logoutBtn" class="icon-btn"><i class="fas fa-sign-out-alt"></i> <span>Выход</span></button>
+        </header>
+
+        <!-- Hero-блок -->
+        <section class="hero">
+            <h1 class="hero-title">Освой <span class="gradient-text">Python</span> с нуля до профи</h1>
+            <p class="hero-subtitle">7 модулей, 99 уроков, интерактивные задания</p>
+        </section>
+
+        <!-- Путь Python-разработчика (прогресс-линия) -->
+        <section class="path-section">
+            <h2 class="section-title">Путь Python-разработчика</h2>
+            <div class="module-timeline" id="moduleTimeline">
+                <!-- 7 кружков будут сгенерированы через JS -->
+            </div>
+        </section>
+
+        <!-- Сетка модулей -->
+        <section class="modules-section">
+            <h2 class="section-title">Модули</h2>
+            <div class="modules-grid" id="modulesGrid"></div>
+        </section>
+    </div>
+
+    <!-- Подвал -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-col">
+                <p>© 2026 PyPath</p>
+                <p class="python-fact" id="pythonFact">🐍 Python назван в честь Монти Пайтона, а не змеи</p>
+            </div>
+            <div class="footer-col">
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-telegram"></i></a>
+                    <a href="#"><i class="fab fa-github"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <a href="#">API для разработчиков</a>
+                <a href="#">Политика конфиденциальности</a>
             </div>
         </div>
-
-        <div class="modules-grid" id="modulesGrid"></div>
-    </div>
+        <div class="easter-egg" id="easterEgg">
+            🐍
+        </div>
+    </footer>
 
     <script type="module" src="firebase-config.js"></script>
     <script type="module" src="script.js"></script>
