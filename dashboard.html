@@ -88,4 +88,51 @@
     <script type="module" src="firebase-config.js"></script>
     <script type="module" src="script.js"></script>
 </body>
+<canvas id="particles-canvas"></canvas>
+<script>
+    const canvas = document.getElementById('particles-canvas');
+    const ctx = canvas.getContext('2d');
+    
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+    
+    const particles = [];
+    for (let i = 0; i < 80; i++) {
+        particles.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            radius: Math.random() * 2 + 1,
+            alpha: Math.random() * 0.3,
+            speedX: (Math.random() - 0.5) * 0.3,
+            speedY: (Math.random() - 0.5) * 0.2
+        });
+    }
+    
+    function animateParticles() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        for (let p of particles) {
+            p.x += p.speedX;
+            p.y += p.speedY;
+            
+            if (p.x < 0) p.x = canvas.width;
+            if (p.x > canvas.width) p.x = 0;
+            if (p.y < 0) p.y = canvas.height;
+            if (p.y > canvas.height) p.y = 0;
+            
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(59, 130, 246, ${p.alpha})`;
+            ctx.fill();
+        }
+        
+        requestAnimationFrame(animateParticles);
+    }
+    
+    animateParticles();
+</script>
 </html>
