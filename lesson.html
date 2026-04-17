@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>PyPath — Урок</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="top-bar">
+            <div class="logo">
+                <i class="fas fa-code"></i> PyPath
+            </div>
+            <div class="stats-bar">
+                <div class="stat">
+                    <i class="fas fa-bolt" style="color: var(--warning);"></i>
+                    <span id="energyValue">5</span>
+                </div>
+                <div class="stat">
+                    <i class="fas fa-heart" style="color: var(--danger);"></i>
+                    <span id="livesValue">5</span>
+                </div>
+                <div class="stat">
+                    <i class="fas fa-star" style="color: var(--warning);"></i>
+                    <span id="scoreValue">0</span>
+                </div>
+            </div>
+            <button id="exitBtn" class="icon-btn">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <!-- Статья (показывается перед заданием) -->
+        <div id="articleBlock" class="glass-card" style="padding: 32px; margin-bottom: 24px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h2><i class="fas fa-book-open"></i> <span id="articleTitle">Теория</span></h2>
+                <button id="closeArticleBtn" class="btn-primary" style="display: none;">
+                    <i class="fas fa-check"></i> Понятно, начнём
+                </button>
+            </div>
+            <div id="articleContent" style="line-height: 1.6;">
+                <!-- Текст статьи загружается из JS -->
+            </div>
+            <button id="startLessonBtn" class="btn-primary" style="margin-top: 24px; width: 100%;">
+                <i class="fas fa-play"></i> Начать задание
+            </button>
+        </div>
+
+        <!-- Задание (скрыто пока не нажмут "Начать задание") -->
+        <div id="taskBlock" class="glass-card" style="padding: 32px; display: none;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h2><i class="fas fa-puzzle-piece"></i> <span id="taskTitle">Задание</span></h2>
+                <div id="goldenCrownBadge" style="display: none;">
+                    <i class="fas fa-crown" style="color: var(--warning);"></i> Золотая корона
+                </div>
+            </div>
+            
+            <!-- Тип задания: Пазл -->
+            <div id="puzzleTask" style="display: none;">
+                <p style="margin-bottom: 16px;">Перетащи карточки в правильном порядке:</p>
+                <div id="puzzleContainer" class="puzzle-container"></div>
+            </div>
+
+            <!-- Тип задания: Вставь пропущенное -->
+            <div id="fillTask" style="display: none;">
+                <div id="fillCode" style="background: var(--card-bg); padding: 16px; border-radius: 16px; font-family: monospace; margin-bottom: 16px;"></div>
+                <input type="text" id="fillAnswer" class="fill-input" placeholder="Вставь пропущенное..." style="width: 100%; padding: 12px; border-radius: 16px; border: 1px solid var(--border); background: var(--card-bg); color: var(--text-primary);">
+            </div>
+
+            <!-- Тип задания: Объясни (выбери вариант) -->
+            <div id="explainTask" style="display: none;">
+                <p id="explainQuestion" style="margin-bottom: 16px;"></p>
+                <div id="explainOptions" class="explain-options"></div>
+            </div>
+
+            <!-- Тип задания: Отметь верное (множественный выбор) -->
+            <div id="checkboxTask" style="display: none;">
+                <p id="checkboxQuestion" style="margin-bottom: 16px;"></p>
+                <div id="checkboxOptions" class="checkbox-options"></div>
+            </div>
+
+            <!-- Тип задания: Напиши код -->
+            <div id="codeTask" style="display: none;">
+                <p id="codeTaskDesc" style="margin-bottom: 16px;"></p>
+                <textarea id="codeAnswer" rows="5" style="width: 100%; padding: 12px; border-radius: 16px; border: 1px solid var(--border); background: var(--card-bg); color: var(--text-primary); font-family: monospace;" placeholder="Напиши свой код здесь..."></textarea>
+            </div>
+
+            <div class="task-actions" style="display: flex; gap: 12px; margin-top: 24px;">
+                <button id="checkTaskBtn" class="btn-primary">
+                    <i class="fas fa-check"></i> Проверить
+                </button>
+                <button id="hintBtn" class="btn-secondary">
+                    <i class="fas fa-lightbulb"></i> Подсказка (20⭐)
+                </button>
+            </div>
+        </div>
+
+        <!-- Результат -->
+        <div id="resultBlock" class="glass-card" style="padding: 32px; margin-top: 24px; display: none; text-align: center;"></div>
+    </div>
+
+    <script type="module" src="firebase-config.js"></script>
+    <script type="module" src="script.js"></script>
+</body>
+</html>

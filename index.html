@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>PyPath — Изучай Python играя</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-card">
+            <div style="text-align: center; margin-bottom: 16px;">
+                <i class="fas fa-code" style="font-size: 48px; color: white;"></i>
+            </div>
+            <h1 style="text-align: center;">PyPath</h1>
+            <p style="text-align: center; color: rgba(255,255,255,0.7); margin-bottom: 8px;">Изучай Python играя</p>
+            <p style="text-align: center; font-size: 0.85rem; color: rgba(255,255,255,0.5); margin-bottom: 24px;">99 уроков · 7 модулей · Система энергии</p>
+            
+            <div class="auth-tabs">
+                <button class="auth-tab active" data-tab="login">
+                    <i class="fas fa-sign-in-alt"></i> Вход
+                </button>
+                <button class="auth-tab" data-tab="register">
+                    <i class="fas fa-user-plus"></i> Регистрация
+                </button>
+            </div>
+
+            <form id="loginForm" class="auth-form active">
+                <div style="position: relative;">
+                    <i class="fas fa-envelope" style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: rgba(255,255,255,0.5);"></i>
+                    <input type="email" id="loginEmail" placeholder="Email" style="padding-left: 44px;" required>
+                </div>
+                <div style="position: relative;">
+                    <i class="fas fa-lock" style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: rgba(255,255,255,0.5);"></i>
+                    <input type="password" id="loginPassword" placeholder="Пароль" style="padding-left: 44px;" required>
+                </div>
+                <button type="submit" class="btn-primary">
+                    <i class="fas fa-arrow-right"></i> Войти
+                </button>
+                <a href="#" id="forgotPassword" style="color: rgba(255,255,255,0.6); font-size: 0.85rem; text-decoration: none; text-align: center;">
+                    Забыли пароль?
+                </a>
+            </form>
+
+            <form id="registerForm" class="auth-form">
+                <div style="position: relative;">
+                    <i class="fas fa-envelope" style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: rgba(255,255,255,0.5);"></i>
+                    <input type="email" id="regEmail" placeholder="Email" style="padding-left: 44px;" required>
+                </div>
+                <div style="position: relative;">
+                    <i class="fas fa-lock" style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: rgba(255,255,255,0.5);"></i>
+                    <input type="password" id="regPassword" placeholder="Пароль (мин. 6 символов)" style="padding-left: 44px;" required>
+                </div>
+                <div style="position: relative;">
+                    <i class="fas fa-check-circle" style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: rgba(255,255,255,0.5);"></i>
+                    <input type="password" id="regConfirm" placeholder="Повторите пароль" style="padding-left: 44px;" required>
+                </div>
+                <button type="submit" class="btn-primary">
+                    <i class="fas fa-user-check"></i> Зарегистрироваться
+                </button>
+            </form>
+
+            <div id="authMessage" class="auth-message" style="margin-top: 20px; text-align: center; font-size: 0.85rem;"></div>
+        </div>
+    </div>
+
+    <script type="module" src="firebase-config.js"></script>
+    <script type="module" src="script.js"></script>
+</body>
+</html>
