@@ -5,46 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PyPath — Урок</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-            background: #0a0a1a;
-            color: #ffffff;
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
-
-        #particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            pointer-events: none;
-        }
-
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                repeating-linear-gradient(0deg, rgba(59, 130, 246, 0.04) 0px, rgba(59, 130, 246, 0.04) 1px, transparent 1px, transparent 40px),
-                repeating-linear-gradient(90deg, rgba(59, 130, 246, 0.04) 0px, rgba(59, 130, 246, 0.04) 1px, transparent 1px, transparent 40px);
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        .container {
+        /* Дополнительные стили для страницы урока */
+        .lesson-container {
             position: relative;
             z-index: 2;
             max-width: 1000px;
@@ -52,48 +16,11 @@
             padding: 20px;
         }
 
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(15, 20, 35, 0.7);
-            backdrop-filter: blur(16px);
-            border-radius: 60px;
-            padding: 12px 24px;
-            margin-bottom: 32px;
-            border: 1px solid rgba(59, 130, 246, 0.2);
-        }
-
-        .logo i {
-            color: #FFD43B;
-        }
-
-        .logo span {
-            background: linear-gradient(135deg, #3B82F6, #FFD43B);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-
-        .back-btn {
-            background: transparent;
-            border: none;
-            color: #94a3b8;
-            cursor: pointer;
-            font-size: 1rem;
-            transition: color 0.2s;
-        }
-
-        .back-btn:hover {
-            color: #3B82F6;
-        }
-
         .lesson-card {
             background: rgba(15, 20, 35, 0.6);
             backdrop-filter: blur(12px);
             border-radius: 28px;
             padding: 32px;
-            margin-bottom: 24px;
             border: 1px solid rgba(59, 130, 246, 0.2);
         }
 
@@ -106,7 +33,6 @@
             color: transparent;
         }
 
-        /* Теория с подсветкой кода */
         .theory {
             background: #0f1420;
             border-radius: 20px;
@@ -116,36 +42,22 @@
             border-left: 4px solid #3B82F6;
         }
 
-        .theory p {
-            margin-bottom: 16px;
-            color: #e2e8f0;
-        }
-
-        /* Блок кода с подсветкой */
-        pre {
+        .theory p { margin-bottom: 16px; color: #e2e8f0; }
+        .theory h4 { color: #FFD43B; margin: 16px 0 8px 0; }
+        .theory ul { margin-left: 20px; color: #94a3b8; }
+        .theory code, .theory pre {
             background: #0a0e17;
-            padding: 16px;
-            border-radius: 16px;
+            padding: 4px 8px;
+            border-radius: 8px;
+            font-family: 'Fira Code', monospace;
+            color: #FFD43B;
+        }
+        .theory pre {
+            padding: 12px;
             overflow-x: auto;
-            margin: 16px 0;
-            font-family: 'Fira Code', 'Courier New', monospace;
-            font-size: 0.9rem;
-            border: 1px solid rgba(59, 130, 246, 0.2);
+            margin: 12px 0;
         }
 
-        code {
-            font-family: 'Fira Code', 'Courier New', monospace;
-        }
-
-        /* Цвета для подсветки синтаксиса */
-        .keyword { color: #FFD43B; font-weight: 600; }
-        .function { color: #60a5fa; }
-        .string { color: #22c55e; }
-        .number { color: #f97316; }
-        .comment { color: #64748b; font-style: italic; }
-        .operator { color: #c084fc; }
-
-        /* Задание */
         .task-area {
             margin-top: 24px;
             background: #0f1420;
@@ -157,9 +69,39 @@
             color: #e2e8f0;
             margin-bottom: 16px;
             font-weight: 500;
+            font-size: 1rem;
+            line-height: 1.5;
         }
 
-        textarea {
+        .task-requirements {
+            background: rgba(59, 130, 246, 0.1);
+            padding: 12px 16px;
+            border-radius: 12px;
+            margin: 16px 0;
+            border-left: 3px solid #3B82F6;
+        }
+
+        .task-requirements p {
+            margin: 4px 0;
+            font-size: 0.9rem;
+            color: #94a3b8;
+        }
+
+        .task-hint {
+            background: rgba(255, 212, 59, 0.1);
+            padding: 12px 16px;
+            border-radius: 12px;
+            margin: 16px 0;
+            border-left: 3px solid #FFD43B;
+        }
+
+        .task-hint p {
+            margin: 0;
+            font-size: 0.9rem;
+            color: #FFD43B;
+        }
+
+        textarea, input {
             width: 100%;
             padding: 14px;
             background: #0a0e17;
@@ -169,32 +111,15 @@
             font-family: 'Fira Code', monospace;
             font-size: 0.9rem;
             resize: vertical;
-            transition: all 0.2s;
-        }
-
-        textarea:focus {
-            outline: none;
-            border-color: #FFD43B;
-            box-shadow: 0 0 10px rgba(255, 212, 59, 0.3);
-        }
-
-        input {
-            width: 100%;
-            padding: 14px;
-            background: #0a0e17;
-            border: 1px solid #3B82F6;
-            border-radius: 12px;
-            color: #fff;
-            font-family: 'Fira Code', monospace;
             margin: 10px 0;
         }
 
-        input:focus {
+        textarea:focus, input:focus {
             outline: none;
             border-color: #FFD43B;
         }
 
-        .btn-check {
+        .btn {
             background: linear-gradient(135deg, #3B82F6, #1d4ed8);
             border: none;
             padding: 12px 28px;
@@ -202,13 +127,17 @@
             color: #fff;
             font-weight: bold;
             cursor: pointer;
-            margin-top: 20px;
             transition: all 0.2s;
+            margin-top: 20px;
         }
 
-        .btn-check:hover {
+        .btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+        }
+
+        .btn-next {
+            background: linear-gradient(135deg, #10b981, #059669);
         }
 
         .puzzle-piece {
@@ -233,30 +162,39 @@
 
         .message {
             margin-top: 20px;
-            padding: 14px;
+            padding: 14px 20px;
             border-radius: 12px;
             text-align: center;
             font-weight: 500;
-        }
-
-        .success {
-            background: rgba(34, 197, 94, 0.2);
-            border: 1px solid #22c55e;
-            color: #22c55e;
-        }
-
-        .error {
-            background: rgba(239, 68, 68, 0.2);
-            border: 1px solid #ef4444;
-            color: #ef4444;
-        }
-
-        .user-stats {
             display: flex;
-            gap: 12px;
             align-items: center;
+            justify-content: center;
+            gap: 10px;
         }
 
+        .message i { font-size: 1.2rem; }
+        .message.success { background: rgba(34, 197, 94, 0.15); border: 1px solid #22c55e; color: #22c55e; }
+        .message.success i { color: #22c55e; }
+        .message.error { background: rgba(239, 68, 68, 0.15); border: 1px solid #ef4444; color: #ef4444; }
+        .message.error i { color: #ef4444; }
+        .message.info { background: rgba(59, 130, 246, 0.15); border: 1px solid #3B82F6; color: #3B82F6; }
+        .message.info i { color: #3B82F6; }
+
+        .checkbox-options label, .explain-options label {
+            display: block;
+            margin: 10px 0;
+            padding: 12px;
+            background: #1a1f2e;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .checkbox-options label:hover, .explain-options label:hover {
+            background: rgba(59, 130, 246, 0.2);
+        }
+
+        .user-stats { display: flex; gap: 12px; align-items: center; }
         .stat {
             background: rgba(255, 255, 255, 0.05);
             padding: 6px 14px;
@@ -265,42 +203,50 @@
             display: flex;
             align-items: center;
             gap: 6px;
-            font-weight: 500;
         }
-
         .stat i.fa-bolt { color: #FFD43B; }
         .stat i.fa-heart { color: #ff6b6b; }
         .stat i.fa-star { color: #FFD43B; }
 
-        .explain-options label, .checkbox-options label {
-            display: block;
-            margin: 10px 0;
-            padding: 12px;
-            background: #1a1f2e;
-            border-radius: 12px;
+        .back-btn {
+            background: transparent;
+            border: none;
+            color: #94a3b8;
             cursor: pointer;
-            transition: all 0.2s;
-            border: 1px solid transparent;
+            font-size: 1rem;
+            transition: color 0.2s;
+        }
+        .back-btn:hover { color: #3B82F6; }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(15, 20, 35, 0.7);
+            backdrop-filter: blur(16px);
+            border-radius: 60px;
+            padding: 12px 24px;
+            margin-bottom: 32px;
+            border: 1px solid rgba(59, 130, 246, 0.2);
         }
 
-        .explain-options label:hover, .checkbox-options label:hover {
-            border-color: #3B82F6;
-            background: rgba(59, 130, 246, 0.1);
+        .logo i { color: #FFD43B; }
+        .logo span {
+            background: linear-gradient(135deg, #3B82F6, #FFD43B);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
         }
 
         @media (max-width: 768px) {
-            .lesson-card {
-                padding: 20px;
-            }
-            .lesson-card h1 {
-                font-size: 1.4rem;
-            }
+            .lesson-card { padding: 20px; }
+            .lesson-card h1 { font-size: 1.4rem; }
         }
     </style>
 </head>
 <body>
     <canvas id="particles"></canvas>
-    <div class="container">
+    <div class="lesson-container">
         <div class="header">
             <div class="logo"><i class="fab fa-python"></i><span>PyPath</span></div>
             <div class="user-stats">
@@ -312,62 +258,49 @@
         </div>
         <div class="lesson-card">
             <h1 id="lessonTitle"></h1>
-            <div class="theory" id="theoryContent"></div>
-            <div class="task-area" id="taskContainer"></div>
+            <div id="theoryBlock" class="theory"></div>
+            <button id="nextBtn" class="btn btn-next">Далее <i class="fas fa-arrow-right"></i></button>
+            <div id="taskBlock" style="display: none;"></div>
             <div id="messageArea" class="message"></div>
         </div>
     </div>
+
     <script>
         // ============ ПОДСВЕТКА КОДА ============
         function highlightCode(code) {
-            // Ключевые слова Python
             const keywords = ['def', 'if', 'else', 'elif', 'for', 'while', 'return', 'import', 'from', 'class', 'try', 'except', 'finally', 'with', 'as', 'pass', 'break', 'continue', 'lambda', 'and', 'or', 'not', 'is', 'None', 'True', 'False', 'in', 'global', 'nonlocal'];
-            
-            // Экранируем HTML
             let escaped = code.replace(/[&<>]/g, function(m) {
                 if (m === '&') return '&amp;';
                 if (m === '<') return '&lt;';
                 if (m === '>') return '&gt;';
                 return m;
             });
-            
-            // Подсветка комментариев
             escaped = escaped.replace(/(#.*$)/gm, '<span class="comment">$1</span>');
-            
-            // Подсветка строк
             escaped = escaped.replace(/(["'])(?:(?=(\\?))\2.)*?\1/g, '<span class="string">$&</span>');
-            
-            // Подсветка чисел
             escaped = escaped.replace(/\b(\d+(?:\.\d+)?)\b/g, '<span class="number">$1</span>');
-            
-            // Подсветка ключевых слов
             keywords.forEach(keyword => {
                 const regex = new RegExp(`\\b(${keyword})\\b`, 'g');
                 escaped = escaped.replace(regex, '<span class="keyword">$1</span>');
             });
-            
-            // Подсветка функций (слова после def или перед скобками)
             escaped = escaped.replace(/\b([a-zA-Z_][a-zA-Z0-9_]*)(?=\()/g, '<span class="function">$1</span>');
-            
             return escaped;
         }
-        
+
         function applyCodeHighlighting() {
             const codeBlocks = document.querySelectorAll('.theory pre, .theory code');
             codeBlocks.forEach(block => {
                 if (block.textContent && !block.classList.contains('highlighted')) {
-                    const originalText = block.textContent;
-                    block.innerHTML = highlightCode(originalText);
+                    block.innerHTML = highlightCode(block.textContent);
                     block.classList.add('highlighted');
                 }
             });
         }
-        
+
         // Наблюдатель за изменениями в теории
         const observer = new MutationObserver(() => {
             applyCodeHighlighting();
         });
-        
+
         // Частицы
         const canvas = document.getElementById('particles'), ctx = canvas.getContext('2d');
         function resize() { canvas.width = innerWidth; canvas.height = innerHeight; }
@@ -390,13 +323,186 @@
             requestAnimationFrame(animate);
         }
         animate();
-        
+
         // Запускаем подсветку после загрузки теории
-        if (document.getElementById('theoryContent')) {
-            observer.observe(document.getElementById('theoryContent'), { childList: true, subtree: true });
+        if (document.getElementById('theoryBlock')) {
+            observer.observe(document.getElementById('theoryBlock'), { childList: true, subtree: true });
         }
+
+        // Получаем параметры из URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const moduleId = urlParams.get('module');
+        const lessonNum = urlParams.get('lesson');
+        const lessonId = `${moduleId}_${lessonNum}`;
+
+        // Загружаем контент из theory.js
+        let content = null;
+        if (typeof getLessonContent !== 'undefined') {
+            content = getLessonContent(lessonId);
+        } else {
+            content = {
+                title: "Урок",
+                theory: "<p>Теория загружается...</p>",
+                task: { description: "Задание загружается...", requirements: "", hint: "", type: "code", validator: () => true }
+            };
+        }
+
+        document.getElementById('lessonTitle').innerHTML = content.title;
+        document.getElementById('theoryBlock').innerHTML = content.theory;
+        applyCodeHighlighting();
+
+        let taskData = content.task;
+        let hintUsed = false;
+        let correctStreak = 0;
+        let currentPuzzleOrder = [];
+
+        // ============ ЛОГИКА РАБОТЫ С FIREBASE (из script.js) ============
+        // Здесь будет интеграция с основным script.js
+        // Функции showMessage, saveUserData, updateUI, updateResources, playSound
+        // доступны из глобального скрипта
+
+        document.getElementById('nextBtn').onclick = () => {
+            document.getElementById('theoryBlock').style.display = 'none';
+            document.getElementById('nextBtn').style.display = 'none';
+            document.getElementById('taskBlock').style.display = 'block';
+
+            const taskContainer = document.getElementById('taskBlock');
+            taskContainer.innerHTML = `
+                <div class="task-description"><i class="fas fa-tasks"></i> ${taskData.description}</div>
+                <div class="task-requirements">
+                    <p><i class="fas fa-clipboard-list"></i> <strong>Что нужно сделать:</strong></p>
+                    ${taskData.requirements.split('\n').map(r => `<p>${r}</p>`).join('')}
+                </div>
+                <div class="task-hint">
+                    <p><i class="fas fa-lightbulb"></i> <strong>Подсказка:</strong> ${taskData.hint}</p>
+                </div>
+            `;
+
+            if (taskData.type === 'code') {
+                taskContainer.innerHTML += `<textarea id="taskAnswer" rows="4" placeholder="Напишите свой код здесь..."></textarea>`;
+                taskContainer.innerHTML += `<button class="btn" id="checkTaskBtn"><i class="fas fa-check"></i> Проверить</button>`;
+                document.getElementById('checkTaskBtn').onclick = () => {
+                    const answer = document.getElementById('taskAnswer').value;
+                    if (taskData.validator(answer)) {
+                        document.getElementById('messageArea').innerHTML = '<i class="fas fa-check-circle"></i> Правильно! Урок пройден.';
+                        document.getElementById('messageArea').className = 'message success';
+                        if (typeof completeLessonFromHTML === 'function') completeLessonFromHTML();
+                    } else {
+                        document.getElementById('messageArea').innerHTML = '<i class="fas fa-times-circle"></i> Неправильно. Попробуйте ещё раз.';
+                        document.getElementById('messageArea').className = 'message error';
+                    }
+                };
+            } else if (taskData.type === 'fill') {
+                taskContainer.innerHTML += `<input type="text" id="taskAnswer" placeholder="Вставьте пропущенное слово">`;
+                taskContainer.innerHTML += `<button class="btn" id="checkTaskBtn"><i class="fas fa-check"></i> Проверить</button>`;
+                document.getElementById('checkTaskBtn').onclick = () => {
+                    const answer = document.getElementById('taskAnswer').value.trim();
+                    if (answer === taskData.correct) {
+                        document.getElementById('messageArea').innerHTML = '<i class="fas fa-check-circle"></i> Правильно! Урок пройден.';
+                        document.getElementById('messageArea').className = 'message success';
+                    } else {
+                        document.getElementById('messageArea').innerHTML = `<i class="fas fa-times-circle"></i> Неправильно. Правильный ответ: ${taskData.correct}`;
+                        document.getElementById('messageArea').className = 'message error';
+                    }
+                };
+            } else if (taskData.type === 'checkbox') {
+                let optionsHtml = '<div class="checkbox-options">';
+                taskData.options.forEach((opt, idx) => {
+                    optionsHtml += `<label><input type="checkbox" value="${idx}"> ${opt}</label>`;
+                });
+                optionsHtml += '</div><button class="btn" id="checkTaskBtn"><i class="fas fa-check"></i> Проверить</button>';
+                taskContainer.innerHTML += optionsHtml;
+                document.getElementById('checkTaskBtn').onclick = () => {
+                    const selected = Array.from(document.querySelectorAll('#taskBlock input:checked')).map(cb => parseInt(cb.value));
+                    const isCorrect = selected.length === taskData.correct.length && taskData.correct.every(v => selected.includes(v));
+                    if (isCorrect) {
+                        document.getElementById('messageArea').innerHTML = '<i class="fas fa-check-circle"></i> Правильно! Урок пройден.';
+                        document.getElementById('messageArea').className = 'message success';
+                    } else {
+                        document.getElementById('messageArea').innerHTML = '<i class="fas fa-times-circle"></i> Неправильно. Попробуйте ещё раз.';
+                        document.getElementById('messageArea').className = 'message error';
+                    }
+                };
+            } else if (taskData.type === 'explain') {
+                let optionsHtml = '<div class="explain-options">';
+                taskData.options.forEach((opt, idx) => {
+                    optionsHtml += `<label><input type="radio" name="explain" value="${idx}"> ${opt}</label>`;
+                });
+                optionsHtml += '</div><button class="btn" id="checkTaskBtn"><i class="fas fa-check"></i> Проверить</button>';
+                taskContainer.innerHTML += optionsHtml;
+                document.getElementById('checkTaskBtn').onclick = () => {
+                    const selected = document.querySelector('input[name="explain"]:checked');
+                    if (selected && parseInt(selected.value) === taskData.correct) {
+                        document.getElementById('messageArea').innerHTML = '<i class="fas fa-check-circle"></i> Правильно! Урок пройден.';
+                        document.getElementById('messageArea').className = 'message success';
+                    } else {
+                        document.getElementById('messageArea').innerHTML = '<i class="fas fa-times-circle"></i> Неправильно. Попробуйте ещё раз.';
+                        document.getElementById('messageArea').className = 'message error';
+                    }
+                };
+            } else if (taskData.type === 'puzzle') {
+                taskContainer.innerHTML += `<div id="puzzleContainer"></div>`;
+                taskContainer.innerHTML += `<button class="btn" id="checkTaskBtn"><i class="fas fa-check"></i> Проверить</button>`;
+                setupPuzzle(taskData.code);
+                document.getElementById('checkTaskBtn').onclick = () => checkPuzzle(taskData.code);
+            }
+        };
+
+        function setupPuzzle(correctCode) {
+            const container = document.getElementById('puzzleContainer');
+            if (!container) return;
+            currentPuzzleOrder = [...correctCode];
+            for (let i = currentPuzzleOrder.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [currentPuzzleOrder[i], currentPuzzleOrder[j]] = [currentPuzzleOrder[j], currentPuzzleOrder[i]];
+            }
+            renderPuzzle();
+        }
+
+        function renderPuzzle() {
+            const container = document.getElementById('puzzleContainer');
+            if (!container) return;
+            container.innerHTML = '';
+            currentPuzzleOrder.forEach((piece, idx) => {
+                const div = document.createElement('div');
+                div.className = 'puzzle-piece';
+                div.textContent = piece;
+                div.draggable = true;
+                div.setAttribute('data-index', idx);
+                div.addEventListener('dragstart', (e) => {
+                    e.dataTransfer.setData('text/plain', idx);
+                });
+                div.addEventListener('dragover', (e) => e.preventDefault());
+                div.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    const fromIdx = parseInt(e.dataTransfer.getData('text/plain'));
+                    const toIdx = idx;
+                    if (fromIdx !== toIdx) {
+                        [currentPuzzleOrder[fromIdx], currentPuzzleOrder[toIdx]] = [currentPuzzleOrder[toIdx], currentPuzzleOrder[fromIdx]];
+                        renderPuzzle();
+                    }
+                });
+                container.appendChild(div);
+            });
+        }
+
+        function checkPuzzle(correctCode) {
+            const isCorrect = currentPuzzleOrder.join('') === correctCode.join('');
+            if (isCorrect) {
+                document.getElementById('messageArea').innerHTML = '<i class="fas fa-check-circle"></i> Правильно! Урок пройден.';
+                document.getElementById('messageArea').className = 'message success';
+            } else {
+                document.getElementById('messageArea').innerHTML = '<i class="fas fa-times-circle"></i> Неправильно. Попробуйте ещё раз.';
+                document.getElementById('messageArea').className = 'message error';
+            }
+        }
+
+        document.getElementById('backBtn').onclick = () => {
+            window.location.href = `module.html?module=${moduleId}`;
+        };
     </script>
     <script type="module" src="firebase-config.js"></script>
     <script type="module" src="script.js"></script>
+    <script src="theory.js"></script>
 </body>
 </html>
