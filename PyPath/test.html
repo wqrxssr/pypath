@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PyPath — Тест</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="top-bar">
+            <div class="logo">🐍 PyPath</div>
+            <div class="stats-bar">
+                <div class="stat">⭐ <span id="scoreValue">0</span></div>
+            </div>
+            <button id="exitBtn" class="icon-btn">✖️</button>
+        </div>
+
+        <div class="test-header">
+            <h1 id="testTitle">Тест модуля A1</h1>
+            <p>Правильных ответов: <span id="correctCount">0</span> / <span id="totalQuestions">15</span></p>
+            <div class="test-progress">
+                <div class="test-progress-fill" id="testProgress"></div>
+            </div>
+        </div>
+
+        <div id="questionContainer" class="question-container"></div>
+
+        <div class="test-controls">
+            <button id="prevBtn" class="btn-secondary" disabled>◀ Назад</button>
+            <button id="nextBtn" class="btn-primary">Далее ▶</button>
+            <button id="submitTestBtn" class="btn-success" style="display: none;">✅ Завершить тест</button>
+        </div>
+
+        <div id="testResult" class="test-result" style="display: none;"></div>
+    </div>
+
+    <script type="module" src="firebase-config.js"></script>
+    <script type="module" src="script.js"></script>
+</body>
+</html>

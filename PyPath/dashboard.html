@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PyPath — Панель обучения</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Верхняя панель -->
+        <div class="top-bar">
+            <div class="logo">🐍 PyPath</div>
+            <div class="stats-bar">
+                <div class="stat">
+                    <span>⚡</span>
+                    <div class="energy-bar">
+                        <div class="energy-fill" id="energyFill"></div>
+                    </div>
+                    <span id="energyValue">5</span>
+                </div>
+                <div class="stat">
+                    <span>❤️</span>
+                    <div class="lives-bar">
+                        <div class="lives-fill" id="livesFill"></div>
+                    </div>
+                    <span id="livesValue">5</span>
+                </div>
+                <div class="stat">
+                    <span>⭐</span>
+                    <span id="scoreValue">0</span>
+                </div>
+                <div class="stat">
+                    <span>🔥</span>
+                    <span id="streakValue">0</span>
+                </div>
+            </div>
+            <div class="settings-icons">
+                <button id="themeToggle" class="icon-btn">🌙</button>
+                <button id="soundToggle" class="icon-btn">🔊</button>
+                <button id="logoutBtn" class="icon-btn">🚪</button>
+            </div>
+        </div>
+
+        <!-- Информация о пользователе -->
+        <div class="user-info">
+            <div class="rank-card">
+                <span id="rankName">Бронзовый код</span>
+                <div class="rank-progress">
+                    <div class="rank-progress-fill" id="rankProgress"></div>
+                </div>
+                <span id="rankPoints">0 / 500</span>
+            </div>
+            <div class="league-card">
+                <span>🏆 <span id="leagueName">Бронзовая лига</span></span>
+                <span>📍 Позиция: <span id="leaguePosition">0</span>/20</span>
+            </div>
+        </div>
+
+        <!-- Энергия и жизни -->
+        <div class="resources-panel">
+            <div class="resource">
+                <h3>⚡ Энергия</h3>
+                <p>Восстанавливается: <span id="energyRestore">1 в час</span></p>
+                <p>Следующая: <span id="nextEnergy">--:--:--</span></p>
+            </div>
+            <div class="resource">
+                <h3>❤️ Жизни</h3>
+                <p>Восстановление: +1 за урок, +1/30мин</p>
+                <button id="buyLifeBtn" class="btn-small">Купить жизнь (100 ⭐)</button>
+            </div>
+        </div>
+
+        <!-- Ежедневные задания -->
+        <div class="daily-quests">
+            <h3>📅 Ежедневные задания</h3>
+            <div id="questsList" class="quests-list"></div>
+        </div>
+
+        <!-- Модули обучения -->
+        <h2>📚 Путь Python</h2>
+        <div class="modules-grid" id="modulesGrid"></div>
+
+        <!-- Отдельный режим повторения -->
+        <div class="review-mode">
+            <h3>🔄 Режим повторения</h3>
+            <p>Повтори пройденные уроки без траты энергии (без награды)</p>
+            <div id="reviewLessons" class="review-lessons"></div>
+        </div>
+    </div>
+
+    <script type="module" src="firebase-config.js"></script>
+    <script type="module" src="script.js"></script>
+</body>
+</html>
