@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PyPath — Профиль</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="top-bar">
+            <div class="logo">🐍 PyPath</div>
+            <div class="stats-bar">
+                <div class="stat">⭐ <span id="scoreValue">0</span></div>
+                <div class="stat">🏆 <span id="bestScoreValue">0</span></div>
+            </div>
+            <button id="backBtn" class="icon-btn">← Назад</button>
+        </div>
+
+        <div class="profile-header">
+            <div class="avatar">🐍</div>
+            <h1 id="userEmail"></h1>
+            <div class="rank-badge" id="rankBadge">Бронзовый код</div>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>📊 Общая статистика</h3>
+                <p>🎯 Всего очков: <span id="totalScore">0</span></p>
+                <p>🏆 Лучший результат: <span id="bestScore">0</span></p>
+                <p>🔥 Максимальный стрейк: <span id="maxStreak">0</span></p>
+                <p>✅ Пройдено уроков: <span id="completedLessonsCount">0</span>/36</p>
+                <p>👑 Золотых корон: <span id="goldenCrownsCount">0</span></p>
+                <p>⚡ Всего потрачено энергии: <span id="totalEnergyUsed">0</span></p>
+                <p>❤️ Всего потеряно жизней: <span id="totalLivesLost">0</span></p>
+            </div>
+            <div class="stat-card">
+                <h3>🎖️ Достижения</h3>
+                <div id="achievementsList">
+                    <p>🏅 Первый урок: <span id="achFirstLesson">❌</span></p>
+                    <p>🏅 10 уроков: <span id="ach10Lessons">❌</span></p>
+                    <p>🏅 20 уроков: <span id="ach20Lessons">❌</span></p>
+                    <p>🏅 30 уроков: <span id="ach30Lessons">❌</span></p>
+                    <p>🏅 Все уроки: <span id="achAllLessons">❌</span></p>
+                    <p>🏅 7-дневный стрейк: <span id="ach7Streak">❌</span></p>
+                    <p>🏅 30-дневный стрейк: <span id="ach30Streak">❌</span></p>
+                    <p>🏅 Золотая корона: <span id="achGoldenCrown">❌</span></p>
+                    <p>🏅 Мастер Python: <span id="achMaster">❌</span></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="settings-panel">
+            <h2>⚙️ Настройки</h2>
+            <div class="setting">
+                <label>🌙 Тёмная тема</label>
+                <label class="switch">
+                    <input type="checkbox" id="darkModeToggle" checked>
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <div class="setting">
+                <label>🔊 Звуки</label>
+                <label class="switch">
+                    <input type="checkbox" id="soundsToggle" checked>
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <div class="setting">
+                <label>🔔 Уведомления</label>
+                <label class="switch">
+                    <input type="checkbox" id="notificationsToggle">
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </div>
+
+        <div class="certificate-section">
+            <button id="downloadCertificateBtn" class="btn-primary">🎓 Скачать сертификат</button>
+        </div>
+
+        <div class="danger-zone">
+            <button id="resetProgressBtn" class="btn-danger">⚠️ СБРОСИТЬ ПРОГРЕСС</button>
+        </div>
+
+        <button id="logoutProfileBtn" class="btn-danger">Выйти из аккаунта</button>
+    </div>
+
+    <script type="module" src="firebase-config.js"></script>
+    <script type="module" src="script.js"></script>
+</body>
+</html>
