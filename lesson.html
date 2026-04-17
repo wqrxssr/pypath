@@ -257,50 +257,20 @@
             <button class="back-btn" id="backBtn"><i class="fas fa-arrow-left"></i> К модулю</button>
         </div>
         <div class="lesson-card">
-            <h1 id="lessonTitle"></h1>
-            <div id="theoryBlock" class="theory"></div>
-            <button id="nextBtn" class="btn btn-next">Далее <i class="fas fa-arrow-right"></i></button>
-            <div id="taskBlock" style="display: none;"></div>
-            <div id="messageArea" class="message"></div>
+            <div id="loadingMessage" class="message info">
+                <i class="fas fa-spinner fa-pulse"></i> Загрузка урока...
+            </div>
+            <div id="lessonContent" style="display: none;">
+                <h1 id="lessonTitle"></h1>
+                <div id="theoryBlock" class="theory"></div>
+                <button id="nextBtn" class="btn btn-next">Далее <i class="fas fa-arrow-right"></i></button>
+                <div id="taskBlock" style="display: none;"></div>
+                <div id="messageArea" class="message"></div>
+            </div>
         </div>
     </div>
 
     <script>
-        // ============ ПОДСВЕТКА КОДА ============
-        function highlightCode(code) {
-            const keywords = ['def', 'if', 'else', 'elif', 'for', 'while', 'return', 'import', 'from', 'class', 'try', 'except', 'finally', 'with', 'as', 'pass', 'break', 'continue', 'lambda', 'and', 'or', 'not', 'is', 'None', 'True', 'False', 'in', 'global', 'nonlocal'];
-            let escaped = code.replace(/[&<>]/g, function(m) {
-                if (m === '&') return '&amp;';
-                if (m === '<') return '&lt;';
-                if (m === '>') return '&gt;';
-                return m;
-            });
-            escaped = escaped.replace(/(#.*$)/gm, '<span class="comment">$1</span>');
-            escaped = escaped.replace(/(["'])(?:(?=(\\?))\2.)*?\1/g, '<span class="string">$&</span>');
-            escaped = escaped.replace(/\b(\d+(?:\.\d+)?)\b/g, '<span class="number">$1</span>');
-            keywords.forEach(keyword => {
-                const regex = new RegExp(`\\b(${keyword})\\b`, 'g');
-                escaped = escaped.replace(regex, '<span class="keyword">$1</span>');
-            });
-            escaped = escaped.replace(/\b([a-zA-Z_][a-zA-Z0-9_]*)(?=\()/g, '<span class="function">$1</span>');
-            return escaped;
-        }
-
-        function applyCodeHighlighting() {
-            const codeBlocks = document.querySelectorAll('.theory pre, .theory code');
-            codeBlocks.forEach(block => {
-                if (block.textContent && !block.classList.contains('highlighted')) {
-                    block.innerHTML = highlightCode(block.textContent);
-                    block.classList.add('highlighted');
-                }
-            });
-        }
-
-        // Наблюдатель за изменениями в теории
-        const observer = new MutationObserver(() => {
-            applyCodeHighlighting();
-        });
-
         // Частицы
         const canvas = document.getElementById('particles'), ctx = canvas.getContext('2d');
         function resize() { canvas.width = innerWidth; canvas.height = innerHeight; }
@@ -323,186 +293,294 @@
             requestAnimationFrame(animate);
         }
         animate();
-
-        // Запускаем подсветку после загрузки теории
-        if (document.getElementById('theoryBlock')) {
-            observer.observe(document.getElementById('theoryBlock'), { childList: true, subtree: true });
-        }
-
+    </script>
+    <script type="module">
+        import { 
+            auth, db, 
+            onAuthStateChanged, signOut,
+            doc, getDoc, updateDoc,
+            getInitialUserData
+        } from './firebase-config.js';
+        
         // Получаем параметры из URL
         const urlParams = new URLSearchParams(window.location.search);
         const moduleId = urlParams.get('module');
         const lessonNum = urlParams.get('lesson');
         const lessonId = `${moduleId}_${lessonNum}`;
-
-        // Загружаем контент из theory.js
-        let content = null;
-        if (typeof getLessonContent !== 'undefined') {
-            content = getLessonContent(lessonId);
-        } else {
-            content = {
-                title: "Урок",
-                theory: "<p>Теория загружается...</p>",
-                task: { description: "Задание загружается...", requirements: "", hint: "", type: "code", validator: () => true }
-            };
-        }
-
-        document.getElementById('lessonTitle').innerHTML = content.title;
-        document.getElementById('theoryBlock').innerHTML = content.theory;
-        applyCodeHighlighting();
-
-        let taskData = content.task;
-        let hintUsed = false;
-        let correctStreak = 0;
-        let currentPuzzleOrder = [];
-
-        // ============ ЛОГИКА РАБОТЫ С FIREBASE (из script.js) ============
-        // Здесь будет интеграция с основным script.js
-        // Функции showMessage, saveUserData, updateUI, updateResources, playSound
-        // доступны из глобального скрипта
-
-        document.getElementById('nextBtn').onclick = () => {
-            document.getElementById('theoryBlock').style.display = 'none';
-            document.getElementById('nextBtn').style.display = 'none';
-            document.getElementById('taskBlock').style.display = 'block';
-
-            const taskContainer = document.getElementById('taskBlock');
-            taskContainer.innerHTML = `
-                <div class="task-description"><i class="fas fa-tasks"></i> ${taskData.description}</div>
-                <div class="task-requirements">
-                    <p><i class="fas fa-clipboard-list"></i> <strong>Что нужно сделать:</strong></p>
-                    ${taskData.requirements.split('\n').map(r => `<p>${r}</p>`).join('')}
-                </div>
-                <div class="task-hint">
-                    <p><i class="fas fa-lightbulb"></i> <strong>Подсказка:</strong> ${taskData.hint}</p>
-                </div>
-            `;
-
-            if (taskData.type === 'code') {
-                taskContainer.innerHTML += `<textarea id="taskAnswer" rows="4" placeholder="Напишите свой код здесь..."></textarea>`;
-                taskContainer.innerHTML += `<button class="btn" id="checkTaskBtn"><i class="fas fa-check"></i> Проверить</button>`;
-                document.getElementById('checkTaskBtn').onclick = () => {
-                    const answer = document.getElementById('taskAnswer').value;
-                    if (taskData.validator(answer)) {
-                        document.getElementById('messageArea').innerHTML = '<i class="fas fa-check-circle"></i> Правильно! Урок пройден.';
-                        document.getElementById('messageArea').className = 'message success';
-                        if (typeof completeLessonFromHTML === 'function') completeLessonFromHTML();
-                    } else {
-                        document.getElementById('messageArea').innerHTML = '<i class="fas fa-times-circle"></i> Неправильно. Попробуйте ещё раз.';
-                        document.getElementById('messageArea').className = 'message error';
+        
+        let currentUser = null;
+        let userData = null;
+        let currentLessonContent = null;
+        let currentTaskData = null;
+        
+        // Функция показа сообщения
+        function showMessage(text, type = 'info') {
+            const msgDiv = document.getElementById('messageArea');
+            if (msgDiv) {
+                let icon = '';
+                if (type === 'success') icon = '<i class="fas fa-check-circle"></i> ';
+                else if (type === 'error') icon = '<i class="fas fa-times-circle"></i> ';
+                else icon = '<i class="fas fa-info-circle"></i> ';
+                msgDiv.innerHTML = icon + text;
+                msgDiv.className = `message ${type}`;
+                setTimeout(() => {
+                    if (msgDiv) {
+                        msgDiv.innerHTML = '';
+                        msgDiv.className = 'message';
                     }
-                };
-            } else if (taskData.type === 'fill') {
-                taskContainer.innerHTML += `<input type="text" id="taskAnswer" placeholder="Вставьте пропущенное слово">`;
-                taskContainer.innerHTML += `<button class="btn" id="checkTaskBtn"><i class="fas fa-check"></i> Проверить</button>`;
-                document.getElementById('checkTaskBtn').onclick = () => {
-                    const answer = document.getElementById('taskAnswer').value.trim();
-                    if (answer === taskData.correct) {
-                        document.getElementById('messageArea').innerHTML = '<i class="fas fa-check-circle"></i> Правильно! Урок пройден.';
-                        document.getElementById('messageArea').className = 'message success';
-                    } else {
-                        document.getElementById('messageArea').innerHTML = `<i class="fas fa-times-circle"></i> Неправильно. Правильный ответ: ${taskData.correct}`;
-                        document.getElementById('messageArea').className = 'message error';
-                    }
-                };
-            } else if (taskData.type === 'checkbox') {
-                let optionsHtml = '<div class="checkbox-options">';
-                taskData.options.forEach((opt, idx) => {
-                    optionsHtml += `<label><input type="checkbox" value="${idx}"> ${opt}</label>`;
-                });
-                optionsHtml += '</div><button class="btn" id="checkTaskBtn"><i class="fas fa-check"></i> Проверить</button>';
-                taskContainer.innerHTML += optionsHtml;
-                document.getElementById('checkTaskBtn').onclick = () => {
-                    const selected = Array.from(document.querySelectorAll('#taskBlock input:checked')).map(cb => parseInt(cb.value));
-                    const isCorrect = selected.length === taskData.correct.length && taskData.correct.every(v => selected.includes(v));
-                    if (isCorrect) {
-                        document.getElementById('messageArea').innerHTML = '<i class="fas fa-check-circle"></i> Правильно! Урок пройден.';
-                        document.getElementById('messageArea').className = 'message success';
-                    } else {
-                        document.getElementById('messageArea').innerHTML = '<i class="fas fa-times-circle"></i> Неправильно. Попробуйте ещё раз.';
-                        document.getElementById('messageArea').className = 'message error';
-                    }
-                };
-            } else if (taskData.type === 'explain') {
-                let optionsHtml = '<div class="explain-options">';
-                taskData.options.forEach((opt, idx) => {
-                    optionsHtml += `<label><input type="radio" name="explain" value="${idx}"> ${opt}</label>`;
-                });
-                optionsHtml += '</div><button class="btn" id="checkTaskBtn"><i class="fas fa-check"></i> Проверить</button>';
-                taskContainer.innerHTML += optionsHtml;
-                document.getElementById('checkTaskBtn').onclick = () => {
-                    const selected = document.querySelector('input[name="explain"]:checked');
-                    if (selected && parseInt(selected.value) === taskData.correct) {
-                        document.getElementById('messageArea').innerHTML = '<i class="fas fa-check-circle"></i> Правильно! Урок пройден.';
-                        document.getElementById('messageArea').className = 'message success';
-                    } else {
-                        document.getElementById('messageArea').innerHTML = '<i class="fas fa-times-circle"></i> Неправильно. Попробуйте ещё раз.';
-                        document.getElementById('messageArea').className = 'message error';
-                    }
-                };
-            } else if (taskData.type === 'puzzle') {
-                taskContainer.innerHTML += `<div id="puzzleContainer"></div>`;
-                taskContainer.innerHTML += `<button class="btn" id="checkTaskBtn"><i class="fas fa-check"></i> Проверить</button>`;
-                setupPuzzle(taskData.code);
-                document.getElementById('checkTaskBtn').onclick = () => checkPuzzle(taskData.code);
+                }, 3000);
             }
-        };
-
-        function setupPuzzle(correctCode) {
-            const container = document.getElementById('puzzleContainer');
-            if (!container) return;
-            currentPuzzleOrder = [...correctCode];
-            for (let i = currentPuzzleOrder.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [currentPuzzleOrder[i], currentPuzzleOrder[j]] = [currentPuzzleOrder[j], currentPuzzleOrder[i]];
-            }
-            renderPuzzle();
         }
-
-        function renderPuzzle() {
-            const container = document.getElementById('puzzleContainer');
-            if (!container) return;
-            container.innerHTML = '';
-            currentPuzzleOrder.forEach((piece, idx) => {
-                const div = document.createElement('div');
-                div.className = 'puzzle-piece';
-                div.textContent = piece;
-                div.draggable = true;
-                div.setAttribute('data-index', idx);
-                div.addEventListener('dragstart', (e) => {
-                    e.dataTransfer.setData('text/plain', idx);
-                });
-                div.addEventListener('dragover', (e) => e.preventDefault());
-                div.addEventListener('drop', (e) => {
-                    e.preventDefault();
-                    const fromIdx = parseInt(e.dataTransfer.getData('text/plain'));
-                    const toIdx = idx;
-                    if (fromIdx !== toIdx) {
-                        [currentPuzzleOrder[fromIdx], currentPuzzleOrder[toIdx]] = [currentPuzzleOrder[toIdx], currentPuzzleOrder[fromIdx]];
-                        renderPuzzle();
-                    }
-                });
-                container.appendChild(div);
+        
+        // Обновление UI
+        function updateUI() {
+            const energyEl = document.getElementById('energyValue');
+            const livesEl = document.getElementById('livesValue');
+            const scoreEl = document.getElementById('scoreValue');
+            if (energyEl) energyEl.textContent = userData?.energy || 5;
+            if (livesEl) livesEl.textContent = userData?.lives || 5;
+            if (scoreEl) scoreEl.textContent = userData?.totalScore || 0;
+        }
+        
+        // Сохранение данных
+        async function saveUserData() {
+            if (!currentUser || !userData) return;
+            const userRef = doc(db, 'users', currentUser.uid);
+            await updateDoc(userRef, userData);
+        }
+        
+        // Завершение урока
+        async function completeLesson() {
+            if (!currentUser || !userData) return;
+            
+            // Проверяем, не пройден ли уже урок
+            if (userData.completedLessons?.includes(lessonId)) {
+                showMessage('Вы уже прошли этот урок!', 'info');
+                setTimeout(() => {
+                    window.location.href = `module.html?module=${moduleId}`;
+                }, 1500);
+                return;
+            }
+            
+            // Тратим энергию
+            if (userData.energy <= 0) {
+                showMessage('Недостаточно энергии! Подождите восстановления.', 'error');
+                return;
+            }
+            
+            userData.energy -= 1;
+            
+            // Добавляем урок в пройденные
+            if (!userData.completedLessons) userData.completedLessons = [];
+            userData.completedLessons.push(lessonId);
+            
+            // Начисляем очки (10 за урок)
+            const pointsEarned = 10;
+            userData.totalScore = (userData.totalScore || 0) + pointsEarned;
+            
+            // Восстанавливаем жизнь за урок
+            userData.lives = Math.min(5, (userData.lives || 5) + 1);
+            
+            // Обновляем статистику
+            if (!userData.stats) userData.stats = {};
+            userData.stats.totalLessonsCompleted = (userData.stats.totalLessonsCompleted || 0) + 1;
+            
+            await saveUserData();
+            updateUI();
+            
+            showMessage(`Урок пройден! +${pointsEarned} очков!`, 'success');
+            
+            // Ждём 1.5 секунды и возвращаемся к модулю
+            setTimeout(() => {
+                window.location.href = `module.html?module=${moduleId}`;
+            }, 1500);
+        }
+        
+        // Функция подсветки кода
+        function highlightCode(code) {
+            const keywords = ['def', 'if', 'else', 'elif', 'for', 'while', 'return', 'import', 'from', 'class', 'try', 'except', 'finally', 'with', 'as', 'pass', 'break', 'continue', 'lambda', 'and', 'or', 'not', 'is', 'None', 'True', 'False', 'in', 'global', 'nonlocal'];
+            let escaped = code.replace(/[&<>]/g, function(m) {
+                if (m === '&') return '&amp;';
+                if (m === '<') return '&lt;';
+                if (m === '>') return '&gt;';
+                return m;
+            });
+            escaped = escaped.replace(/(#.*$)/gm, '<span style="color:#6a9955;">$1</span>');
+            escaped = escaped.replace(/(["'])(?:(?=(\\?))\2.)*?\1/g, '<span style="color:#ce9178;">$&</span>');
+            escaped = escaped.replace(/\b(\d+(?:\.\d+)?)\b/g, '<span style="color:#b5cea8;">$1</span>');
+            keywords.forEach(keyword => {
+                const regex = new RegExp(`\\b(${keyword})\\b`, 'g');
+                escaped = escaped.replace(regex, '<span style="color:#569cd6;">$1</span>');
+            });
+            escaped = escaped.replace(/\b([a-zA-Z_][a-zA-Z0-9_]*)(?=\()/g, '<span style="color:#dcdcaa;">$1</span>');
+            return escaped;
+        }
+        
+        function applyCodeHighlighting() {
+            const codeBlocks = document.querySelectorAll('.theory pre, .theory code');
+            codeBlocks.forEach(block => {
+                if (block.textContent && !block.classList.contains('highlighted')) {
+                    block.innerHTML = highlightCode(block.textContent);
+                    block.classList.add('highlighted');
+                }
             });
         }
-
-        function checkPuzzle(correctCode) {
-            const isCorrect = currentPuzzleOrder.join('') === correctCode.join('');
-            if (isCorrect) {
-                document.getElementById('messageArea').innerHTML = '<i class="fas fa-check-circle"></i> Правильно! Урок пройден.';
-                document.getElementById('messageArea').className = 'message success';
+        
+        // Рендер теории и задания
+        function renderLesson() {
+            if (!currentLessonContent) return;
+            
+            document.getElementById('loadingMessage').style.display = 'none';
+            document.getElementById('lessonContent').style.display = 'block';
+            document.getElementById('lessonTitle').innerHTML = currentLessonContent.title;
+            document.getElementById('theoryBlock').innerHTML = currentLessonContent.theory;
+            applyCodeHighlighting();
+            
+            currentTaskData = currentLessonContent.task;
+            
+            document.getElementById('nextBtn').onclick = () => {
+                document.getElementById('theoryBlock').style.display = 'none';
+                document.getElementById('nextBtn').style.display = 'none';
+                document.getElementById('taskBlock').style.display = 'block';
+                
+                const taskContainer = document.getElementById('taskBlock');
+                if (!taskContainer) return;
+                
+                taskContainer.innerHTML = `
+                    <div class="task-description"><i class="fas fa-tasks"></i> ${currentTaskData.description || 'Выполните задание'}</div>
+                    <div class="task-requirements">
+                        <p><i class="fas fa-clipboard-list"></i> <strong>Что нужно сделать:</strong></p>
+                        ${(currentTaskData.requirements || '').split('\n').map(r => `<p>${r}</p>`).join('')}
+                    </div>
+                    <div class="task-hint">
+                        <p><i class="fas fa-lightbulb"></i> <strong>Подсказка:</strong> ${currentTaskData.hint || 'Подумайте ещё раз'}</p>
+                    </div>
+                `;
+                
+                if (currentTaskData.type === 'code') {
+                    taskContainer.innerHTML += `<textarea id="taskAnswer" rows="4" placeholder="Напишите свой код здесь..."></textarea>`;
+                    taskContainer.innerHTML += `<button class="btn" id="checkTaskBtn"><i class="fas fa-check"></i> Проверить</button>`;
+                    document.getElementById('checkTaskBtn').onclick = () => {
+                        const answer = document.getElementById('taskAnswer').value;
+                        if (currentTaskData.validator(answer)) {
+                            completeLesson();
+                        } else {
+                            showMessage('Неправильно. Попробуйте ещё раз.', 'error');
+                        }
+                    };
+                } else if (currentTaskData.type === 'fill') {
+                    taskContainer.innerHTML += `<input type="text" id="taskAnswer" placeholder="Вставьте пропущенное слово">`;
+                    taskContainer.innerHTML += `<button class="btn" id="checkTaskBtn"><i class="fas fa-check"></i> Проверить</button>`;
+                    document.getElementById('checkTaskBtn').onclick = () => {
+                        const answer = document.getElementById('taskAnswer').value.trim();
+                        if (answer === currentTaskData.correct) {
+                            completeLesson();
+                        } else {
+                            showMessage(`Неправильно. Правильный ответ: ${currentTaskData.correct}`, 'error');
+                        }
+                    };
+                } else if (currentTaskData.type === 'checkbox') {
+                    let optionsHtml = '<div class="checkbox-options">';
+                    currentTaskData.options.forEach((opt, idx) => {
+                        optionsHtml += `<label><input type="checkbox" value="${idx}"> ${opt}</label>`;
+                    });
+                    optionsHtml += '</div><button class="btn" id="checkTaskBtn"><i class="fas fa-check"></i> Проверить</button>';
+                    taskContainer.innerHTML += optionsHtml;
+                    document.getElementById('checkTaskBtn').onclick = () => {
+                        const selected = Array.from(document.querySelectorAll('#taskBlock input:checked')).map(cb => parseInt(cb.value));
+                        const isCorrect = selected.length === currentTaskData.correct.length && currentTaskData.correct.every(v => selected.includes(v));
+                        if (isCorrect) {
+                            completeLesson();
+                        } else {
+                            showMessage('Неправильно. Попробуйте ещё раз.', 'error');
+                        }
+                    };
+                } else if (currentTaskData.type === 'explain') {
+                    let optionsHtml = '<div class="explain-options">';
+                    currentTaskData.options.forEach((opt, idx) => {
+                        optionsHtml += `<label><input type="radio" name="explain" value="${idx}"> ${opt}</label>`;
+                    });
+                    optionsHtml += '</div><button class="btn" id="checkTaskBtn"><i class="fas fa-check"></i> Проверить</button>';
+                    taskContainer.innerHTML += optionsHtml;
+                    document.getElementById('checkTaskBtn').onclick = () => {
+                        const selected = document.querySelector('input[name="explain"]:checked');
+                        if (selected && parseInt(selected.value) === currentTaskData.correct) {
+                            completeLesson();
+                        } else {
+                            showMessage('Неправильно. Попробуйте ещё раз.', 'error');
+                        }
+                    };
+                }
+            };
+        }
+        
+        // Загрузка контента урока из theory.js (глобальная переменная)
+        function loadLessonContent() {
+            // Проверяем, загрузилась ли теория
+            if (typeof lessonsContent !== 'undefined' && lessonsContent[lessonId]) {
+                currentLessonContent = lessonsContent[lessonId];
+                renderLesson();
             } else {
-                document.getElementById('messageArea').innerHTML = '<i class="fas fa-times-circle"></i> Неправильно. Попробуйте ещё раз.';
-                document.getElementById('messageArea').className = 'message error';
+                // Ждём загрузки theory.js
+                setTimeout(() => {
+                    if (typeof lessonsContent !== 'undefined' && lessonsContent[lessonId]) {
+                        currentLessonContent = lessonsContent[lessonId];
+                        renderLesson();
+                    } else {
+                        document.getElementById('loadingMessage').innerHTML = '<i class="fas fa-exclamation-triangle"></i> Ошибка загрузки теории. Попробуйте обновить страницу.';
+                        document.getElementById('loadingMessage').className = 'message error';
+                    }
+                }, 500);
             }
         }
-
+        
+        // Аутентификация и загрузка данных
+        onAuthStateChanged(auth, async (user) => {
+            if (!user) {
+                window.location.href = 'index.html';
+                return;
+            }
+            
+            currentUser = user;
+            const userRef = doc(db, 'users', user.uid);
+            const userSnap = await getDoc(userRef);
+            
+            if (userSnap.exists()) {
+                userData = userSnap.data();
+            } else {
+                userData = getInitialUserData();
+                await updateDoc(userRef, userData);
+            }
+            
+            updateUI();
+            
+            // Обновляем ресурсы
+            const now = Date.now();
+            const energyPassed = Math.floor((now - (userData.lastEnergyUpdate || now)) / 3600000);
+            if (energyPassed > 0) {
+                userData.energy = Math.min(5, (userData.energy || 5) + energyPassed);
+                userData.lastEnergyUpdate = now;
+                await saveUserData();
+                updateUI();
+            }
+            
+            const lifePassed = Math.floor((now - (userData.lastLifeUpdate || now)) / 1800000);
+            if (lifePassed > 0) {
+                userData.lives = Math.min(5, (userData.lives || 5) + lifePassed);
+                userData.lastLifeUpdate = now;
+                await saveUserData();
+                updateUI();
+            }
+            
+            // Загружаем контент урока
+            loadLessonContent();
+        });
+        
+        // Кнопка назад
         document.getElementById('backBtn').onclick = () => {
             window.location.href = `module.html?module=${moduleId}`;
         };
     </script>
-    <script type="module" src="firebase-config.js"></script>
-    <script type="module" src="script.js"></script>
     <script src="theory.js"></script>
 </body>
 </html>
