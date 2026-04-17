@@ -2,57 +2,97 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PyPath — Тест</title>
-    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: system-ui, sans-serif; background: #0a0a1a; color: white; }
+        #particles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; }
+        .container { position: relative; z-index: 2; max-width: 800px; margin: 0 auto; padding: 20px; }
+        .header { display: flex; justify-content: space-between; align-items: center; background: rgba(10,10,26,0.7); backdrop-filter: blur(16px); border-radius: 60px; padding: 12px 24px; margin-bottom: 40px; border: 1px solid rgba(59,130,246,0.2); }
+        .back-btn { background: transparent; border: none; color: #94a3b8; cursor: pointer; font-size: 1rem; }
+        .test-card { background: rgba(15,20,35,0.6); backdrop-filter: blur(12px); border-radius: 28px; padding: 32px; margin-bottom: 24px; border: 1px solid rgba(59,130,246,0.2); }
+        .question { margin: 20px 0; padding: 20px; background: #1a1f2e; border-radius: 20px; }
+        .option { display: block; margin: 12px 0; padding: 12px; background: #0f1420; border-radius: 12px; cursor: pointer; }
+        .option:hover { background: #1a1f2e; border: 1px solid #3B82F6; }
+        .btn { background: linear-gradient(135deg,#3B82F6,#1d4ed8); border: none; padding: 12px 24px; border-radius: 40px; color: white; cursor: pointer; margin-top: 20px; width: 100%; }
+        .result { margin-top: 20px; padding: 20px; border-radius: 20px; text-align: center; }
+        .success { background: rgba(34,197,94,0.2); border: 1px solid #22c55e; }
+        .fail { background: rgba(239,68,68,0.2); border: 1px solid #ef4444; }
+    </style>
 </head>
 <body>
+    <canvas id="particles"></canvas>
     <div class="container">
-        <div class="top-bar">
-            <div class="logo">
-                <i class="fas fa-code"></i> PyPath
-            </div>
-            <div class="stats-bar">
-                <div class="stat">
-                    <i class="fas fa-star" style="color: var(--warning);"></i>
-                    <span id="scoreValue">0</span>
-                </div>
-            </div>
-            <button id="exitBtn" class="icon-btn">
-                <i class="fas fa-times"></i>
-            </button>
+        <div class="header">
+            <div class="logo"><i class="fab fa-python"></i> <span>PyPath</span></div>
+            <button class="back-btn" onclick="window.location.href='module.html?module=A1'"><i class="fas fa-arrow-left"></i> Назад</button>
         </div>
-
-        <div class="glass-card" style="padding: 32px; margin-bottom: 24px; text-align: center;">
-            <h1 id="testTitle">Тест модуля A1</h1>
-            <p style="color: var(--text-secondary); margin-top: 8px;">Проверь свои знания</p>
-            <div class="progress-bar" style="margin: 16px 0;">
-                <div class="progress-fill" id="testProgress"></div>
-            </div>
-            <div>Правильных ответов: <span id="correctCount">0</span> / <span id="totalQuestions">0</span></div>
+        <div class="test-card">
+            <h1>Тест модуля A1</h1>
+            <div id="questions"></div>
+            <button class="btn" id="submitBtn">Завершить тест</button>
+            <div id="result" class="result" style="display: none;"></div>
         </div>
-
-        <div id="questionContainer" class="glass-card" style="padding: 32px; margin-bottom: 24px;">
-            <!-- Вопросы загружаются из JS -->
-        </div>
-
-        <div class="test-controls" style="display: flex; justify-content: space-between; gap: 12px; margin-bottom: 24px;">
-            <button id="prevBtn" class="btn-secondary" disabled>
-                <i class="fas fa-arrow-left"></i> Назад
-            </button>
-            <button id="nextBtn" class="btn-primary">
-                Далее <i class="fas fa-arrow-right"></i>
-            </button>
-            <button id="submitTestBtn" class="btn-primary" style="display: none; background: var(--success);">
-                <i class="fas fa-check-circle"></i> Завершить тест
-            </button>
-        </div>
-
-        <div id="testResult" class="glass-card" style="padding: 32px; display: none; text-align: center;"></div>
     </div>
-
-    <script type="module" src="firebase-config.js"></script>
-    <script type="module" src="script.js"></script>
+    <script>
+        const canvas = document.getElementById('particles');
+        const ctx = canvas.getContext('2d');
+        function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+        resize(); window.addEventListener('resize', resize);
+        const particles = [];
+        for (let i = 0; i < 80; i++) particles.push({ x: Math.random() * canvas.width, y: Math.random() * canvas.height, r: Math.random() * 2, a: Math.random() * 0.3, vx: (Math.random() - 0.5) * 0.3, vy: (Math.random() - 0.5) * 0.2 });
+        function animate() { ctx.clearRect(0, 0, canvas.width, canvas.height); for (let p of particles) { p.x += p.vx; p.y += p.vy; if (p.x < 0) p.x = canvas.width; if (p.x > canvas.width) p.x = 0; if (p.y < 0) p.y = canvas.height; if (p.y > canvas.height) p.y = 0; ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2); ctx.fillStyle = `rgba(59, 130, 246, ${p.a})`; ctx.fill(); } requestAnimationFrame(animate); }
+        animate();
+        
+        const questions = [
+            { text: 'Что выведет print(5 + 3)?', options: ['5', '8', '53'], correct: 1 },
+            { text: 'Какой тип данных у "Hello"?', options: ['int', 'str', 'float'], correct: 1 },
+            { text: 'Какая переменная названа правильно?', options: ['1var', 'var_name', 'var-name'], correct: 1 }
+        ];
+        
+        let userAnswers = new Array(questions.length).fill(null);
+        
+        function renderQuestions() {
+            const container = document.getElementById('questions');
+            container.innerHTML = '';
+            questions.forEach((q, idx) => {
+                const div = document.createElement('div');
+                div.className = 'question';
+                div.innerHTML = `<h3>Вопрос ${idx + 1}</h3><p>${q.text}</p>`;
+                q.options.forEach((opt, optIdx) => {
+                    const label = document.createElement('label');
+                    label.className = 'option';
+                    label.innerHTML = `<input type="radio" name="q${idx}" value="${optIdx}"> ${opt}`;
+                    label.onclick = () => {
+                        userAnswers[idx] = optIdx;
+                    };
+                    div.appendChild(label);
+                });
+                container.appendChild(div);
+            });
+        }
+        
+        renderQuestions();
+        
+        document.getElementById('submitBtn').onclick = () => {
+            let correct = 0;
+            questions.forEach((q, idx) => {
+                if (userAnswers[idx] === q.correct) correct++;
+            });
+            const percent = (correct / questions.length) * 100;
+            const passed = percent >= 70;
+            const resultDiv = document.getElementById('result');
+            resultDiv.style.display = 'block';
+            if (passed) {
+                resultDiv.className = 'result success';
+                resultDiv.innerHTML = `<i class="fas fa-trophy"></i> Поздравляем! Вы набрали ${correct}/${questions.length} (${percent}%)<br>Модуль пройден! +50 очков`;
+            } else {
+                resultDiv.className = 'result fail';
+                resultDiv.innerHTML = `<i class="fas fa-sad-tear"></i> Вы набрали ${correct}/${questions.length} (${percent}%)<br>Нужно 70%. Попробуйте ещё раз.`;
+            }
+        };
+    </script>
 </body>
 </html>

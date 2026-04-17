@@ -2,137 +2,101 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>PyPath — Освой Python</title>
-    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PyPath — Обучение Python</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: system-ui, sans-serif; background: #0a0a1a; color: white; min-height: 100vh; }
+        #particles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; }
+        body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-image: linear-gradient(rgba(59,130,246,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(59,130,246,0.05) 1px, transparent 1px); background-size: 40px 40px; pointer-events: none; z-index: 0; }
+        .container { position: relative; z-index: 2; max-width: 1200px; margin: 0 auto; padding: 20px; }
+        .header { display: flex; justify-content: space-between; align-items: center; background: rgba(10,10,26,0.7); backdrop-filter: blur(16px); border-radius: 60px; padding: 12px 24px; margin-bottom: 40px; border: 1px solid rgba(59,130,246,0.2); flex-wrap: wrap; gap: 15px; }
+        .logo { font-size: 1.3rem; font-weight: bold; display: flex; align-items: center; gap: 8px; }
+        .logo i { color: #FFD43B; }
+        .logo span { background: linear-gradient(135deg, #3B82F6, #FFD43B); -webkit-background-clip: text; background-clip: text; color: transparent; }
+        .nav { display: flex; gap: 24px; }
+        .nav a { color: #94a3b8; text-decoration: none; transition: 0.2s; cursor: pointer; }
+        .nav a:hover, .nav a.active { color: #3B82F6; }
+        .user-stats { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+        .stat { background: rgba(255,255,255,0.05); padding: 6px 14px; border-radius: 40px; font-size: 0.85rem; display: flex; align-items: center; gap: 8px; }
+        .avatar { width: 40px; height: 40px; background: linear-gradient(135deg, #3B82F6, #8b5cf6); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-weight: bold; }
+        .hero { text-align: center; margin: 60px 0; }
+        .hero h1 { font-size: 3rem; background: linear-gradient(135deg, #fff, #3B82F6, #FFD43B); -webkit-background-clip: text; background-clip: text; color: transparent; }
+        .hero p { color: #94a3b8; margin-top: 16px; }
+        .timeline { display: flex; justify-content: space-between; background: rgba(15,20,35,0.6); backdrop-filter: blur(12px); border-radius: 60px; padding: 20px 40px; margin: 40px 0; border: 1px solid rgba(59,130,246,0.2); flex-wrap: wrap; gap: 20px; }
+        .timeline-node { text-align: center; flex: 1; min-width: 60px; }
+        .timeline-dot { width: 44px; height: 44px; background: #1a1f2e; border: 2px solid #3B82F6; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 8px; font-weight: bold; }
+        .timeline-node.completed .timeline-dot { background: #22c55e; border-color: #22c55e; }
+        .timeline-node.current .timeline-dot { box-shadow: 0 0 20px #3B82F6; }
+        .modules { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; margin: 40px 0; }
+        .module-card { background: rgba(15,20,35,0.6); backdrop-filter: blur(12px); border-radius: 24px; padding: 24px; border: 1px solid rgba(59,130,246,0.2); transition: 0.3s; cursor: pointer; }
+        .module-card:hover { transform: translateY(-5px); border-color: #3B82F6; box-shadow: 0 20px 40px rgba(59,130,246,0.2); }
+        .module-icon { font-size: 2rem; margin-bottom: 16px; }
+        .module-card h3 { margin-bottom: 8px; }
+        .progress-bar { height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px; margin: 16px 0; }
+        .progress-fill { width: 0%; height: 100%; background: linear-gradient(90deg, #3B82F6, #FFD43B); border-radius: 2px; }
+        .btn { background: linear-gradient(135deg, #3B82F6, #1d4ed8); border: none; padding: 12px 28px; border-radius: 40px; color: white; font-weight: bold; cursor: pointer; transition: 0.2s; }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 0 20px rgba(59,130,246,0.5); }
+        @media (max-width: 768px) { .nav { display: none; } .hero h1 { font-size: 2rem; } .timeline { flex-wrap: wrap; justify-content: center; } }
+    </style>
 </head>
 <body>
+    <canvas id="particles"></canvas>
     <div class="container">
-        <!-- Шапка с блюром при скролле -->
-        <header class="header" id="header">
-            <div class="logo">
-                <div class="logo-icon">&lt;/&gt;<span class="logo-p">P</span></div>
-                <span class="logo-text">PyPath</span>
+        <div class="header">
+            <div class="logo"><i class="fab fa-python"></i><span>PyPath</span></div>
+            <div class="nav"><a href="dashboard.html" class="active">Модули</a><a href="#">Песочница</a><a href="#">Рейтинг</a></div>
+            <div class="user-stats">
+                <div class="stat"><i class="fas fa-bolt" style="color:#FFD43B"></i> <span id="energyValue">5</span>/5</div>
+                <div class="stat"><i class="fas fa-heart" style="color:#ff6b6b"></i> <span id="livesValue">5</span>/5</div>
+                <div class="stat"><i class="fas fa-star" style="color:#FFD43B"></i> <span id="scoreValue">0</span></div>
+                <div class="stat" id="streakBtn" style="cursor:pointer"><i class="fas fa-fire" style="color:#FFD43B"></i> <span id="streakValue">0</span></div>
+                <div class="avatar" id="avatarBtn">M</div>
             </div>
-            
-            <nav class="nav">
-                <a href="#" class="nav-link active">Модули</a>
-                <a href="#" class="nav-link">Песочница</a>
-                <a href="#" class="nav-link">Рейтинг</a>
-                <a href="#" class="nav-link">Сообщество</a>
-            </nav>
-            
-            <div class="user-block">
-                <div class="xp-bar">
-                    <span class="xp-label">XP</span>
-                    <div class="xp-progress">
-                        <div class="xp-fill" style="width: 65%;"></div>
-                    </div>
-                    <span class="xp-value">650/1000</span>
-                </div>
-                <div class="avatar" id="avatarBtn">
-                    <span class="avatar-initials">M</span>
-                </div>
-                <button class="btn-continue" id="continueLessonBtn">
-                    <i class="fas fa-bolt"></i> Продолжить урок
-                </button>
-            </div>
-        </header>
-
-        <!-- Hero-блок -->
-        <section class="hero">
-            <h1 class="hero-title">Освой <span class="gradient-text">Python</span> с нуля до профи</h1>
-            <p class="hero-subtitle">7 модулей, 99 уроков, интерактивные задания</p>
-        </section>
-
-        <!-- Путь Python-разработчика (прогресс-линия) -->
-        <section class="path-section">
-            <h2 class="section-title">Путь Python-разработчика</h2>
-            <div class="module-timeline" id="moduleTimeline">
-                <!-- 7 кружков будут сгенерированы через JS -->
-            </div>
-        </section>
-
-        <!-- Сетка модулей -->
-        <section class="modules-section">
-            <h2 class="section-title">Модули</h2>
-            <div class="modules-grid" id="modulesGrid"></div>
-        </section>
+        </div>
+        <div class="hero"><h1>Освой <span style="background:linear-gradient(135deg,#3B82F6,#FFD43B);-webkit-background-clip:text;background-clip:text;color:transparent;">Python</span> с нуля</h1><p>7 модулей, 99 уроков, интерактивные задания</p></div>
+        <div class="timeline">
+            <div class="timeline-node completed"><div class="timeline-dot"><i class="fas fa-check"></i></div><div>A1</div></div>
+            <div class="timeline-node current"><div class="timeline-dot">2</div><div>A2</div></div>
+            <div class="timeline-node"><div class="timeline-dot">3</div><div>B1</div></div>
+            <div class="timeline-node"><div class="timeline-dot">4</div><div>B2</div></div>
+            <div class="timeline-node"><div class="timeline-dot">5</div><div>C1</div></div>
+            <div class="timeline-node"><div class="timeline-dot">6</div><div>C2</div></div>
+            <div class="timeline-node"><div class="timeline-dot">7</div><div>C3</div></div>
+        </div>
+        <div class="modules" id="modulesGrid"></div>
+        <button class="btn" id="continueBtn" style="display:block; margin:0 auto 60px;"><i class="fas fa-play"></i> Продолжить обучение</button>
     </div>
-
-    <!-- Подвал -->
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-col">
-                <p>© 2026 PyPath</p>
-                <p class="python-fact" id="pythonFact">🐍 Python назван в честь Монти Пайтона, а не змеи</p>
-            </div>
-            <div class="footer-col">
-                <div class="social-links">
-                    <a href="#"><i class="fab fa-telegram"></i></a>
-                    <a href="#"><i class="fab fa-github"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                </div>
-            </div>
-            <div class="footer-col">
-                <a href="#">API для разработчиков</a>
-                <a href="#">Политика конфиденциальности</a>
-            </div>
-        </div>
-        <div class="easter-egg" id="easterEgg">
-            🐍
-        </div>
-    </footer>
-
-    <script type="module" src="firebase-config.js"></script>
-    <script type="module" src="script.js"></script>
-</body>
-<canvas id="particles-canvas"></canvas>
-<script>
-    const canvas = document.getElementById('particles-canvas');
-    const ctx = canvas.getContext('2d');
-    
-    function resizeCanvas() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-    }
-    resizeCanvas();
-    window.addEventListener('resize', resizeCanvas);
-    
-    const particles = [];
-    for (let i = 0; i < 80; i++) {
-        particles.push({
-            x: Math.random() * canvas.width,
-            y: Math.random() * canvas.height,
-            radius: Math.random() * 2 + 1,
-            alpha: Math.random() * 0.3,
-            speedX: (Math.random() - 0.5) * 0.3,
-            speedY: (Math.random() - 0.5) * 0.2
+    <script>
+        const canvas = document.getElementById('particles');
+        const ctx = canvas.getContext('2d');
+        function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+        resize(); window.addEventListener('resize', resize);
+        const particles = [];
+        for (let i = 0; i < 80; i++) particles.push({ x: Math.random() * canvas.width, y: Math.random() * canvas.height, r: Math.random() * 2, a: Math.random() * 0.3, vx: (Math.random() - 0.5) * 0.3, vy: (Math.random() - 0.5) * 0.2 });
+        function animate() { ctx.clearRect(0, 0, canvas.width, canvas.height); for (let p of particles) { p.x += p.vx; p.y += p.vy; if (p.x < 0) p.x = canvas.width; if (p.x > canvas.width) p.x = 0; if (p.y < 0) p.y = canvas.height; if (p.y > canvas.height) p.y = 0; ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2); ctx.fillStyle = `rgba(59, 130, 246, ${p.a})`; ctx.fill(); } requestAnimationFrame(animate); }
+        animate();
+        const modules = [
+            { id: 'A1', name: 'Основы Python', icon: 'fas fa-seedling', progress: 100, lessons: 14, completed: 14, locked: false },
+            { id: 'A2', name: 'Условия', icon: 'fas fa-book', progress: 30, lessons: 14, completed: 4, locked: false },
+            { id: 'B1', name: 'Циклы', icon: 'fas fa-bolt', progress: 0, lessons: 14, completed: 0, locked: false },
+            { id: 'B2', name: 'Функции', icon: 'fas fa-rocket', progress: 0, lessons: 14, completed: 0, locked: false },
+            { id: 'C1', name: 'Структуры данных', icon: 'fas fa-gem', progress: 0, lessons: 14, completed: 0, locked: false },
+            { id: 'C2', name: 'Продвинутые темы', icon: 'fas fa-fire', progress: 0, lessons: 14, completed: 0, locked: false },
+            { id: 'C3', name: 'ООП и финал', icon: 'fas fa-crown', progress: 0, lessons: 14, completed: 0, locked: false }
+        ];
+        const container = document.getElementById('modulesGrid');
+        modules.forEach(m => {
+            const card = document.createElement('div');
+            card.className = `module-card ${m.locked ? 'locked' : ''}`;
+            card.innerHTML = `<div class="module-icon"><i class="${m.icon}"></i></div><h3>Модуль ${m.id}</h3><p>${m.name}</p><div class="progress-bar"><div class="progress-fill" style="width: ${m.progress}%"></div></div><span>${m.completed}/${m.lessons} уроков</span>`;
+            if (!m.locked) card.onclick = () => window.location.href = `module.html?module=${m.id}`;
+            container.appendChild(card);
         });
-    }
-    
-    function animateParticles() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        
-        for (let p of particles) {
-            p.x += p.speedX;
-            p.y += p.speedY;
-            
-            if (p.x < 0) p.x = canvas.width;
-            if (p.x > canvas.width) p.x = 0;
-            if (p.y < 0) p.y = canvas.height;
-            if (p.y > canvas.height) p.y = 0;
-            
-            ctx.beginPath();
-            ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-            ctx.fillStyle = `rgba(59, 130, 246, ${p.alpha})`;
-            ctx.fill();
-        }
-        
-        requestAnimationFrame(animateParticles);
-    }
-    
-    animateParticles();
-</script>
+        document.getElementById('continueBtn').onclick = () => window.location.href = 'module.html?module=A2';
+        document.getElementById('avatarBtn').onclick = () => window.location.href = 'profile.html';
+        document.getElementById('streakBtn').onclick = () => alert('Ваш стрейк: 0 дней. Пройдите урок сегодня!');
+    </script>
+</body>
 </html>
