@@ -36,7 +36,7 @@ if = 5              # if — ключевое слово</code></pre>
         task: {
             description: "Создайте переменную с именем `name` и присвойте ей значение `'Анна'`. Затем выведите значение этой переменной на экран.",
             requirements: "• Используй оператор присваивания `=`\n• Для вывода используй функцию `print()`\n• Имя переменной должно быть `name`\n• Значение переменной должно быть строкой `'Анна'`",
-            hint: "Напиши: name = 'Анна' и print(name)",
+            hint: "Сначала создай переменную с именем name и значением 'Анна' с помощью знака =. Затем используй функцию print(), чтобы показать содержимое переменной на экране.",
             type: "code",
             validator: (code) => code.includes('name') && code.includes('print') && (code.includes("'Анна'") || code.includes('"Анна"'))
         }
@@ -68,7 +68,7 @@ print(type(is_ready))  # &lt;class 'bool'&gt;</code></pre>
         task: {
             description: "Создайте переменную `x` и присвойте ей целое число 5. Затем с помощью функции `type()` выведите тип этой переменной на экран.",
             requirements: "• Переменная должна называться `x`\n• Значение переменной должно быть целым числом 5\n• Для вывода типа используй `print(type(x))`",
-            hint: "Напиши: x = 5 и print(type(x))",
+            hint: "Сначала создай переменную x со значением 5. Затем внутри print() напиши type(x), чтобы узнать тип переменной.",
             type: "code",
             validator: (code) => code.includes('x = 5') && code.includes('print') && code.includes('type')
         }
@@ -98,7 +98,7 @@ print("мир!")  # выведет: Привет мир!</code></pre>
         task: {
             description: "Напишите код, который выводит на экран фразу 'Привет, мир!'.",
             requirements: "• Используй функцию `print()`\n• Текст должен быть заключён в кавычки (одинарные или двойные)\n• Вывод должен быть именно: Привет, мир!",
-            hint: "Напиши: print('Привет, мир!') или print(\"Привет, мир!\")",
+            hint: "Используй функцию print(). Текст, который нужно вывести, помести в круглые скобки и обязательно заключи в кавычки.",
             type: "code",
             validator: (code) => code.includes('print') && (code.includes("'Привет, мир!'") || code.includes('"Привет, мир!"'))
         }
@@ -126,7 +126,7 @@ print("Привет, " + name)</code></pre>
         task: {
             description: "Напишите программу, которая запрашивает у пользователя его имя и выводит приветствие 'Привет, [имя]!' (где [имя] — то, что ввёл пользователь).",
             requirements: "• Используй `input()` для получения имени\n• Сохрани результат в переменную `name`\n• Используй `print()` для вывода приветствия\n• Вывод должен быть в формате: Привет, [имя]!",
-            hint: "Напиши: name = input() и print('Привет, ' + name + '!')",
+            hint: "Сначала используй input() и сохрани результат в переменную name. Затем в print() используй f-строку (f перед кавычками) или сложение строк через +, чтобы вставить имя в приветствие.",
             type: "code",
             validator: (code) => code.includes('input') && code.includes('print') && code.includes('name')
         }
@@ -164,7 +164,7 @@ b = float(a)      # b = 7.0 (дробное число)</code></pre>
         task: {
             description: "Дана переменная `x = \"5\"` (строка). Преобразуйте её в целое число, сохраните результат в переменную `y` и выведите результат сложения `y + 3`.",
             requirements: "• Используй `int()` для преобразования\n• Переменная `y` должна содержать преобразованное значение\n• Выведи `y + 3` с помощью `print()`",
-            hint: "Напиши: y = int(x) и print(y + 3)",
+            hint: "Функция int() преобразует строку в число. Примени её к x и сохрани результат в y. Затем внутри print() напиши y + 3.",
             type: "code",
             validator: (code) => code.includes('int(x)') && code.includes('print') && code.includes('y')
         }
@@ -200,7 +200,7 @@ print(2 ** 4)   # 16 (2 в 4 степени)</code></pre>
         task: {
             description: "Вычислите 5 в 3 степени (5³). Результат выведите на экран с помощью `print()`.",
             requirements: "• Используй оператор `**` для возведения в степень\n• Выражение должно быть: 5 ** 3\n• Результат выведи через `print()`",
-            hint: "Напиши: print(5 ** 3)",
+            hint: "Для возведения в степень используется оператор **. Напиши 5 ** 3 внутри print().",
             type: "code",
             validator: (code) => code.includes('5 ** 3') && code.includes('print')
         }
@@ -239,7 +239,7 @@ print(name[-2])  # выведет: н (предпоследний)</code></pre>
         task: {
             description: "Дана строка `name = \"Анна\"`. Выведите на экран второй символ этой строки (букву 'н').",
             requirements: "• Используй квадратные скобки `[]` для доступа к символу\n• Второй символ имеет индекс 1 (так как счёт начинается с 0)\n• Используй `print()` для вывода",
-            hint: "Напиши: print(name[1])",
+            hint: "Чтобы получить символ строки, используй квадратные скобки после имени переменной и укажи внутри индекс нужного символа. Помни, что первый символ — индекс 0, значит второй — индекс 1.",
             type: "code",
             validator: (code) => code.includes('print') && code.includes('name[1]')
         }
@@ -277,7 +277,7 @@ print(f"{x} + {y} = {x + y}")  # 10 + 20 = 30</code></pre>
         task: {
             description: "Создайте переменную `name` со значением `'Анна'`. Выведите на экран приветствие в формате 'Привет, Анна' с использованием f-строки.",
             requirements: "• Создай переменную `name = 'Анна'`\n• Используй f-строку: перед кавычками поставь `f`\n• Внутри строки используй `{name}` для вставки значения\n• Используй `print()` для вывода",
-            hint: "Напиши: name = 'Анна' и print(f'Привет, {name}')",
+            hint: "Сначала создай переменную name = 'Анна'. Затем в print() напиши f перед открывающей кавычкой, а внутри строки в фигурных скобках укажи имя переменной — {name}.",
             type: "code",
             validator: (code) => code.includes('name =') && (code.includes('f"') || code.includes("f'")) && code.includes('print')
         }
@@ -312,7 +312,7 @@ print(5 < 3)    # False (5 не меньше 3)</code></pre>
         task: {
             description: "Какое значение вернёт выражение 5 == 5? Напишите код, который выводит результат этого сравнения.",
             requirements: "• Используй оператор сравнения `==`\n• Выражение должно быть: 5 == 5\n• Используй `print()` для вывода результата",
-            hint: "Напиши: print(5 == 5)",
+            hint: "Оператор == проверяет равенство. Напиши 5 == 5 внутри print(). Результатом будет True или False.",
             type: "code",
             validator: (code) => code.includes('5 == 5') && code.includes('print')
         }
@@ -346,7 +346,7 @@ if x == 10:
         task: {
             description: "Напишите код, который проверяет, что переменная `x` больше 5. Если это так, выведите на экран сообщение 'Больше'.",
             requirements: "• Создай переменную `x = 10`\n• Используй условный оператор `if`\n• Условие: `x > 5`\n• При истинности условия выведи `'Больше'` через `print()`",
-            hint: "Напиши: x = 10\nif x > 5:\n    print('Больше')",
+            hint: "Сначала создай переменную x = 10. Затем напиши if, после него условие x > 5 и двоеточие. На следующей строке с отступом напиши print('Больше').",
             type: "code",
             validator: (code) => code.includes('if') && code.includes('x > 5') && code.includes('print')
         }
@@ -373,7 +373,7 @@ print("Привет, " + name + "!")</code></pre>
         task: {
             description: "Напишите программу, которая запрашивает у пользователя его имя, а затем выводит сообщение 'Привет, [имя]!'. Используйте input() и print().",
             requirements: "• Используй `input()` для получения имени\n• Сохрани результат в переменную (например, `name`)\n• Используй `print()` для вывода приветствия\n• Формат вывода: 'Привет, [имя]!'",
-            hint: "Напиши: name = input() и print(f'Привет, {name}!')",
+            hint: "Сначала используй input() и сохрани результат в переменную (например, name). Затем в print() используй f-строку (f перед кавычками) или сложи строки через +, чтобы вставить имя в приветствие.",
             type: "code",
             validator: (code) => code.includes('input') && code.includes('print')
         }
@@ -397,7 +397,7 @@ print("Привет, " + name + "!")</code></pre>
         task: {
             description: "Даны переменные a = 5 и b = 3. Вычислите их произведение (площадь прямоугольника) и выведите результат на экран.",
             requirements: "• Используй оператор умножения `*`\n• Результат сохрани в переменную `s`\n• Выведи `s` с помощью `print()`",
-            hint: "Напиши: s = a * b и print(s)",
+            hint: "Умножение в Python обозначается звёздочкой *. Вычисли a * b и сохрани результат в новую переменную s. Затем выведи s через print().",
             type: "code",
             validator: (code) => code.includes('*') && code.includes('print')
         }
@@ -429,7 +429,7 @@ a, b = b, a  # теперь a = 10, b = 5</code></pre>
         task: {
             description: "Даны переменные a = 5 и b = 10. Поменяйте их значения местами так, чтобы a стало равно 10, а b стало равно 5. Выведите значения a и b.",
             requirements: "• Используй конструкцию `a, b = b, a`\n• После обмена выведи a и b через `print()`",
-            hint: "Напиши: a, b = b, a и print(a, b)",
+            hint: "В Python есть короткий способ обмена значений: a, b = b, a. Это поменяет значения местами. После этого выведи a и b через print().",
             type: "code",
             validator: (code) => (code.includes('a, b = b, a') || (code.includes('temp') && code.includes('a') && code.includes('b'))) && code.includes('print')
         }
@@ -458,7 +458,7 @@ a, b = b, a  # теперь a = 10, b = 5</code></pre>
         task: {
             description: "Какие из перечисленных типов данных существуют в Python? Отметьте все правильные варианты.",
             requirements: "• Выбери все правильные варианты\n• В Python есть: int (целые числа), str (строки), float (дробные числа)\n• char (символ) в Python нет — символы хранятся как строки длиной 1",
-            hint: "Правильные ответы: int, str, float",
+            hint: "В Python есть int для целых чисел, float для дробных и str для строк. Отдельного типа для одного символа (char) в Python нет — символы хранятся как строки длиной 1.",
             type: "checkbox",
             options: ["int", "str", "float", "char"],
             correct: [0, 1, 2]
@@ -486,7 +486,7 @@ if x > 5:
         task: {
             description: "Напишите код, который проверяет, что переменная x > 5. Если условие истинно, выведите 'Больше'.",
             requirements: "• Создай x = 10\n• Используй if\n• Условие: x > 5\n• Вывод: 'Больше'",
-            hint: "Напиши: x = 10\nif x > 5:\n    print('Больше')",
+            hint: "Создай переменную x = 10. Затем напиши if, после него условие x > 5 и двоеточие. На следующей строке с отступом напиши print('Больше').",
             type: "code",
             validator: (code) => code.includes('if') && code.includes('x > 5')
         }
@@ -552,7 +552,7 @@ else:
         task: {
             description: "Что выведет код при x = 75? Выберите правильный вариант.",
             requirements: "• Внимательно посмотри на условия\n• 75 >= 90? Нет\n• 75 >= 70? Да → вывод '4'",
-            hint: "Правильный ответ: 4",
+            hint: "Проверь каждое условие по порядку: сначала 75 >= 90? Нет. Потом 75 >= 70? Да → выведется то, что в этом блоке.",
             type: "explain",
             question: "Что выведет код при x = 75?",
             options: ["5", "4", "3"],
@@ -589,7 +589,7 @@ if not has_license:
         task: {
             description: "Какие логические операторы есть в Python? Отметьте все правильные варианты.",
             requirements: "• В Python есть: and, or, not\n• xor нет",
-            hint: "Правильные ответы: and, or, not",
+            hint: "Логические операторы в Python — это and (И), or (ИЛИ) и not (НЕ). Оператора xor в Python нет как отдельного ключевого слова.",
             type: "checkbox",
             options: ["and", "or", "not", "xor"],
             correct: [0, 1, 2]
@@ -627,7 +627,7 @@ else:
         task: {
             description: "Напишите код, который проверяет, что x > 0 и x < 10. Используйте вложенный if (один if внутри другого).",
             requirements: "• Создай x = 5\n• Сначала проверь x > 0\n• Внутри проверь x < 10\n• Выведи 'Подходит' если оба условия истинны",
-            hint: "Напиши: if x > 0:\n    if x < 10:\n        print('Подходит')",
+            hint: "Сначала создай x = 5. Затем напиши if x > 0:, внутри него — ещё один if x < 10:, а внутри второго — print('Подходит'). Не забудь про отступы.",
             type: "code",
             validator: (code) => code.includes('if') && code.includes('x > 0') && code.includes('x < 10') && code.includes('print')
         }
@@ -679,7 +679,7 @@ print("Apple" < "apple")  # True (A < a)</code></pre>
         task: {
             description: "Напишите код, который сравнивает две строки 'abc' и 'abd' и выводит результат сравнения на экран.",
             requirements: "• Используй оператор <\n• print('abc' < 'abd')",
-            hint: "print('abc' < 'abd')",
+            hint: "Строки сравниваются посимвольно. Используй оператор < между двумя строками внутри print().",
             type: "code",
             validator: (code) => code.includes('print') && code.includes('"abc"') && code.includes('<')
         }
@@ -727,7 +727,7 @@ print(x > 5 and x < 10)</code></pre>
         task: {
             description: "Напишите код, который проверяет, что x находится между 5 и 10 (не включая границы). Используйте цепочку сравнений.",
             requirements: "• Создай x = 7\n• Используй 5 < x < 10",
-            hint: "if 5 < x < 10:\n    print('x между 5 и 10')",
+            hint: "В Python можно записать двойное неравенство: 5 < x < 10. Используй это в условии if и выведи сообщение.",
             type: "code",
             validator: (code) => code.includes('5 < x < 10') && code.includes('print')
         }
@@ -748,7 +748,7 @@ print(x > 5 and x < 10)</code></pre>
         task: {
             description: "Напишите программу, которая по переменной mark (например, 75) выводит соответствующую оценку (A, B, C или D).",
             requirements: "• Используй if-elif-else\n• mark = 75\n• 90+ → A, 70-89 → B, 50-69 → C, иначе D",
-            hint: "if mark >= 90:\n    print('A')\nelif mark >= 70:\n    print('B')\nelif mark >= 50:\n    print('C')\nelse:\n    print('D')",
+            hint: "Используй конструкцию if-elif-else. Сначала проверь mark >= 90 (A), затем mark >= 70 (B), затем mark >= 50 (C), иначе — D.",
             type: "code",
             validator: (code) => code.includes('if') && code.includes('elif') && code.includes('else')
         }
@@ -763,7 +763,7 @@ print(x > 5 and x < 10)</code></pre>
         task: {
             description: "Напишите код, который проверяет, что age >= 18 и has_license == True. Если оба условия истинны, выведите 'Можно водить'.",
             requirements: "• age = 25, has_license = True\n• Используй and",
-            hint: "if age >= 18 and has_license:\n    print('Можно водить')",
+            hint: "В условии if соедини два выражения через and: age >= 18 и has_license. Оба должны быть истинны, чтобы выполнился код внутри if.",
             type: "code",
             validator: (code) => code.includes('and') && code.includes('print')
         }
@@ -778,7 +778,7 @@ print(x > 5 and x < 10)</code></pre>
         task: {
             description: "Напишите код с вложенным if: сначала проверьте, что x > 0, а внутри проверьте, что x < 10. Если оба условия истинны, выведите 'Подходит'.",
             requirements: "• x = 5\n• Вложенный if",
-            hint: "if x > 0:\n    if x < 10:\n        print('Подходит')",
+            hint: "Сначала напиши if x > 0:. Внутри него — ещё один if x < 10:. Внутри второго — print('Подходит'). Не забудь про отступы.",
             type: "code",
             validator: (code) => code.includes('if x > 0') && code.includes('if x < 10')
         }
@@ -840,7 +840,7 @@ print(x > 5 and x < 10)</code></pre>
         task: {
             description: "Напишите цикл for, который выводит числа от 0 до 4.",
             requirements: "• Используй range(5)",
-            hint: "for i in range(5):\n    print(i)",
+            hint: "Используй конструкцию for i in range(5):, а внутри цикла — print(i). range(5) создаст числа от 0 до 4.",
             type: "code",
             validator: (code) => code.includes('for') && code.includes('range')
         }
@@ -892,7 +892,7 @@ while x < 3:
         task: {
             description: "Напишите цикл while, который выводит числа 0, 1, 2.",
             requirements: "• x = 0\n• while x < 3\n• x = x + 1",
-            hint: "x = 0\nwhile x < 3:\n    print(x)\n    x = x + 1",
+            hint: "Создай переменную x = 0. Затем напиши while x < 3:, внутри — print(x) и x = x + 1 (чтобы увеличивать x на 1).",
             type: "code",
             validator: (code) => code.includes('while') && code.includes('x < 3')
         }
@@ -913,7 +913,7 @@ while x < 3:
         task: {
             description: "Напишите цикл for, который выводит числа от 0 до 2, а при i == 3 прерывается с помощью break.",
             requirements: "• for i in range(10)\n• if i == 3: break",
-            hint: "for i in range(10):\n    if i == 3:\n        break\n    print(i)",
+            hint: "Используй цикл for i in range(10). Внутри проверь if i == 3: break. До break выводи i через print().",
             type: "code",
             validator: (code) => code.includes('for') && code.includes('break')
         }
@@ -934,7 +934,7 @@ while x < 3:
         task: {
             description: "Напишите цикл for, который выводит числа от 0 до 4, пропуская число 2 с помощью continue.",
             requirements: "• for i in range(5)\n• if i == 2: continue",
-            hint: "for i in range(5):\n    if i == 2:\n        continue\n    print(i)",
+            hint: "Используй цикл for i in range(5). Внутри проверь if i == 2: continue, затем выводи i через print().",
             type: "code",
             validator: (code) => code.includes('for') && code.includes('continue')
         }
@@ -955,7 +955,7 @@ else:
         task: {
             description: "Напишите цикл for с блоком else, который выводит сообщение после завершения цикла.",
             requirements: "• for i in range(3)\n• else: print('Готово')",
-            hint: "for i in range(3):\n    print(i)\nelse:\n    print('Готово')",
+            hint: "Напиши цикл for i in range(3):, внутри — print(i). После цикла добавь блок else: с print('Готово').",
             type: "code",
             validator: (code) => code.includes('for') && code.includes('else')
         }
@@ -975,7 +975,7 @@ else:
         task: {
             description: "Напишите вложенный цикл для вывода таблицы умножения от 1 до 3.",
             requirements: "• for i in range(1, 4)\n• for j in range(1, 4)",
-            hint: "for i in range(1, 4):\n    for j in range(1, 4):\n        print(f'{i} * {j} = {i * j}')",
+            hint: "Используй внешний цикл for i in range(1, 4): и внутри него — внутренний for j in range(1, 4):. Внутри выводи i * j.",
             type: "code",
             validator: (code) => code.includes('for') && code.includes('for')
         }
@@ -1019,7 +1019,7 @@ for i, fruit in enumerate(fruits):
         task: {
             description: "Используйте enumerate для вывода индекса и значения из списка ['a', 'b', 'c'].",
             requirements: "• for i, val in enumerate(['a','b','c'])",
-            hint: "for i, val in enumerate(['a','b','c']):\n    print(i, val)",
+            hint: "Используй цикл for i, val in enumerate(['a','b','c']): и внутри print(i, val). enumerate вернёт индекс и элемент.",
             type: "code",
             validator: (code) => code.includes('enumerate')
         }
@@ -1034,7 +1034,7 @@ for i, fruit in enumerate(fruits):
         task: {
             description: "Напишите цикл for, который суммирует числа от 1 до 100 и выводит результат.",
             requirements: "• total = 0\n• for i in range(1, 101): total += i\n• print(total)",
-            hint: "total = 0\nfor i in range(1, 101):\n    total += i\nprint(total)",
+            hint: "Создай переменную total = 0. Затем цикл for i in range(1, 101): и внутри прибавляй i к total (total += i). После цикла выведи total.",
             type: "code",
             validator: (code) => code.includes('for') && code.includes('range')
         }
@@ -1049,7 +1049,7 @@ for i, fruit in enumerate(fruits):
         task: {
             description: "Найдите первое число больше 50 в списке [10, 20, 30, 60, 70] с помощью while и break.",
             requirements: "• numbers = [10, 20, 30, 60, 70]\n• i = 0\n• while i < len(numbers):\n    if numbers[i] > 50: break\n    i += 1",
-            hint: "numbers = [10, 20, 30, 60, 70]\ni = 0\nwhile i < len(numbers):\n    if numbers[i] > 50:\n        print(numbers[i])\n        break\n    i += 1",
+            hint: "Создай переменную i = 0. В цикле while i < len(numbers) проверяй numbers[i] > 50. Если да — выведи число и break. Иначе увеличивай i на 1.",
             type: "code",
             validator: (code) => code.includes('while') && code.includes('break')
         }
@@ -1064,7 +1064,7 @@ for i, fruit in enumerate(fruits):
         task: {
             description: "Напишите вложенный цикл для вывода координат (x, y) от 0 до 2.",
             requirements: "• for x in range(3):\n    for y in range(3):\n        print(x, y)",
-            hint: "for x in range(3):\n    for y in range(3):\n        print(x, y)",
+            hint: "Используй внешний цикл for x in range(3): и внутри него — внутренний for y in range(3):. Внутри выводи x и y через print().",
             type: "code",
             validator: (code) => code.includes('for x') && code.includes('for y')
         }
@@ -1125,7 +1125,7 @@ say_hello()  # вызов функции</code></pre>
         task: {
             description: "Создайте функцию say_hello, которая выводит 'Hello!'.",
             requirements: "• def say_hello():\n    print('Hello!')",
-            hint: "def say_hello():\n    print('Hello!')",
+            hint: "Используй ключевое слово def, затем имя функции say_hello, затем круглые скобки и двоеточие. На следующей строке с отступом напиши print('Hello!').",
             type: "code",
             validator: (code) => code.includes('def') && code.includes('say_hello')
         }
@@ -1146,7 +1146,7 @@ greet("Анна")  # Привет, Анна!</code></pre>
         task: {
             description: "Создайте функцию greet(name), которая выводит 'Привет, [name]!'.",
             requirements: "• def greet(name):\n    print(f'Привет, {name}!')",
-            hint: "def greet(name):\n    print(f'Привет, {name}!')",
+            hint: "Определи функцию с параметром name: def greet(name):. Внутри используй f-строку для вывода приветствия.",
             type: "code",
             validator: (code) => code.includes('def') && code.includes('name')
         }
@@ -1168,7 +1168,7 @@ print(result)  # 8</code></pre>
         task: {
             description: "Создайте функцию add(a, b), которая возвращает сумму a и b.",
             requirements: "• def add(a, b):\n    return a + b",
-            hint: "def add(a, b):\n    return a + b",
+            hint: "Определи функцию add с параметрами a и b. Внутри используй return a + b, чтобы вернуть сумму.",
             type: "code",
             validator: (code) => code.includes('def') && code.includes('return')
         }
@@ -1215,7 +1215,7 @@ print(x)  # 10</code></pre>
         task: {
             description: "Создайте функцию, которая изменяет глобальную переменную x с помощью global.",
             requirements: "• x = 10\n• def change():\n    global x\n    x = 20",
-            hint: "x = 10\ndef change():\n    global x\n    x = 20",
+            hint: "Сначала создай глобальную переменную x = 10. Внутри функции change() используй ключевое слово global x, затем присвой x = 20.",
             type: "code",
             validator: (code) => code.includes('global')
         }
@@ -1237,7 +1237,7 @@ print(sum_all(5, 10, 15, 20))  # 50</code></pre>
         task: {
             description: "Создайте функцию с *args, которая суммирует все переданные аргументы.",
             requirements: "• def sum_all(*args):\n    return sum(args)",
-            hint: "def sum_all(*args):\n    return sum(args)",
+            hint: "Определи функцию sum_all с параметром *args. Внутри используй return sum(args).",
             type: "code",
             validator: (code) => code.includes('*args')
         }
@@ -1259,7 +1259,7 @@ print_info(name="Анна", age=25, city="Москва")</code></pre>
         task: {
             description: "Создайте функцию с **kwargs, которая выводит все переданные именованные аргументы.",
             requirements: "• def print_info(**kwargs):\n    for key, value in kwargs.items():\n        print(key, value)",
-            hint: "def print_info(**kwargs):\n    for key, value in kwargs.items():\n        print(key, value)",
+            hint: "Определи функцию с параметром **kwargs. Внутри используй цикл for key, value in kwargs.items(): и выводи их.",
             type: "code",
             validator: (code) => code.includes('**kwargs')
         }
@@ -1281,7 +1281,7 @@ print(square(5))  # 25</code></pre>
         task: {
             description: "Создайте lambda-функцию, которая удваивает число.",
             requirements: "• lambda x: x * 2",
-            hint: "double = lambda x: x * 2",
+            hint: "Напиши lambda x: x * 2. Это анонимная функция, которая принимает x и возвращает x * 2.",
             type: "code",
             validator: (code) => code.includes('lambda')
         }
@@ -1301,7 +1301,7 @@ print(squared)  # [1, 4, 9, 16]</code></pre>
         task: {
             description: "Используйте map и lambda для удвоения элементов списка [1, 2, 3].",
             requirements: "• list(map(lambda x: x * 2, [1,2,3]))",
-            hint: "result = list(map(lambda x: x * 2, [1,2,3]))\nprint(result)",
+            hint: "Используй map(lambda x: x * 2, [1,2,3]) и оберни результат в list(), чтобы получить список.",
             type: "code",
             validator: (code) => code.includes('map') && code.includes('lambda')
         }
@@ -1321,7 +1321,7 @@ print(even)  # [2, 4, 6]</code></pre>
         task: {
             description: "Используйте filter и lambda для получения чётных чисел из списка [1,2,3,4,5,6].",
             requirements: "• list(filter(lambda x: x % 2 == 0, [1,2,3,4,5,6]))",
-            hint: "result = list(filter(lambda x: x % 2 == 0, [1,2,3,4,5,6]))\nprint(result)",
+            hint: "Используй filter(lambda x: x % 2 == 0, [1,2,3,4,5,6]) и оберни в list(). Условие x % 2 == 0 проверяет чётность.",
             type: "code",
             validator: (code) => code.includes('filter') && code.includes('lambda')
         }
@@ -1344,7 +1344,7 @@ print(factorial(5))  # 120</code></pre>
         task: {
             description: "Напишите рекурсивную функцию factorial(n), которая вычисляет факториал числа n.",
             requirements: "• def factorial(n):\n    if n <= 1: return 1\n    return n * factorial(n-1)",
-            hint: "def factorial(n):\n    if n <= 1:\n        return 1\n    return n * factorial(n-1)",
+            hint: "Определи функцию factorial(n). Базовый случай: если n <= 1, верни 1. Иначе верни n * factorial(n-1).",
             type: "code",
             validator: (code) => code.includes('def') && code.includes('factorial') && code.includes('return')
         }
@@ -1366,7 +1366,7 @@ print(add.__doc__)  # Возвращает сумму двух чисел.</code
         task: {
             description: "Добавьте docstring к функции add(a, b) с описанием 'Возвращает сумму a и b'.",
             requirements: "• def add(a, b):\n    \"\"\"Возвращает сумму a и b\"\"\"\n    return a + b",
-            hint: 'def add(a, b):\n    """Возвращает сумму a и b"""\n    return a + b',
+            hint: 'Сразу после строки def добавь строку в тройных кавычках с описанием функции.',
             type: "code",
             validator: (code) => code.includes('"""') || code.includes("'''")
         }
@@ -1388,7 +1388,7 @@ greet()        # Привет, Гость!</code></pre>
         task: {
             description: "Создайте функцию greet(name) с аргументом по умолчанию 'Гость'.",
             requirements: "• def greet(name='Гость'):\n    print(f'Привет, {name}!')",
-            hint: "def greet(name='Гость'):\n    print(f'Привет, {name}!')",
+            hint: "В определении функции укажи name='Гость'. Если аргумент не передан, будет использовано это значение.",
             type: "code",
             validator: (code) => code.includes('def') && code.includes('=')
         }
@@ -1438,7 +1438,7 @@ print(numbers[-1]) # 30 (последний элемент)</code></pre>
         task: {
             description: "Создайте список из 5 чисел: 1, 2, 3, 4, 5.",
             requirements: "• numbers = [1, 2, 3, 4, 5]",
-            hint: "numbers = [1, 2, 3, 4, 5]",
+            hint: "Список создаётся с помощью квадратных скобок. Перечисли числа через запятую: [1, 2, 3, 4, 5].",
             type: "code",
             validator: (code) => code.includes('[') && code.includes(']')
         }
@@ -1467,7 +1467,7 @@ numbers.sort()        # сортирует</code></pre>
         task: {
             description: "Создайте список [1,2,3] и добавьте в него элемент 4 с помощью append.",
             requirements: "• numbers = [1,2,3]\n• numbers.append(4)",
-            hint: "numbers = [1,2,3]\nnumbers.append(4)\nprint(numbers)",
+            hint: "Сначала создай список [1,2,3]. Затем используй метод .append(4) для добавления элемента в конец.",
             type: "code",
             validator: (code) => code.includes('append')
         }
@@ -1511,7 +1511,7 @@ print(user["age"])   # 25</code></pre>
         task: {
             description: "Создайте словарь с ключами 'name' и 'age' и значениями 'Анна' и 25.",
             requirements: "• user = {'name': 'Анна', 'age': 25}",
-            hint: "user = {'name': 'Анна', 'age': 25}",
+            hint: "Словарь создаётся в фигурных скобках. Пары ключ:значение разделяются запятыми.",
             type: "code",
             validator: (code) => code.includes('{') && code.includes('}') && code.includes(':')
         }
@@ -1538,7 +1538,7 @@ print(user.items())  # dict_items([('name', 'Анна'), ('age', 25)])</code></p
         task: {
             description: "Получите значение по ключу 'name' из словаря {'name': 'Анна', 'age': 25}.",
             requirements: "• user['name']",
-            hint: "user = {'name': 'Анна', 'age': 25}\nprint(user['name'])",
+            hint: "Используй квадратные скобки и ключ: user['name'].",
             type: "code",
             validator: (code) => code.includes('[') && code.includes(']') && code.includes("'name'")
         }
@@ -1565,7 +1565,7 @@ print(a - b)  # разность: {1}</code></pre>
         task: {
             description: "Создайте множество из чисел 1, 2, 3.",
             requirements: "• numbers = {1, 2, 3}",
-            hint: "numbers = {1, 2, 3}",
+            hint: "Множество создаётся в фигурных скобках без двоеточий (в отличие от словаря): {1, 2, 3}.",
             type: "code",
             validator: (code) => code.includes('{') && code.includes('}') && !code.includes(':')
         }
@@ -1589,7 +1589,7 @@ print(numbers[1])  # 2</code></pre>
         task: {
             description: "Создайте кортеж из трёх элементов: 1, 2, 3.",
             requirements: "• t = (1, 2, 3)",
-            hint: "t = (1, 2, 3)",
+            hint: "Кортеж создаётся в круглых скобках. Перечисли элементы через запятую: (1, 2, 3).",
             type: "code",
             validator: (code) => code.includes('(') && code.includes(')')
         }
@@ -1611,7 +1611,7 @@ evens = [x for x in range(10) if x % 2 == 0]  # [0, 2, 4, 6, 8]</code></pre>
         task: {
             description: "Создайте список квадратов чисел от 1 до 5 с помощью list comprehension.",
             requirements: "• [x*x for x in range(1, 6)]",
-            hint: "squares = [x*x for x in range(1, 6)]\nprint(squares)",
+            hint: "Используй синтаксис [x*x for x in range(1, 6)]. range(1, 6) даст числа от 1 до 5.",
             type: "code",
             validator: (code) => code.includes('for') && code.includes(']')
         }
@@ -1632,7 +1632,7 @@ evens = [x for x in range(10) if x % 2 == 0]  # [0, 2, 4, 6, 8]</code></pre>
         task: {
             description: "Создайте словарь квадратов чисел от 1 до 5 с помощью dict comprehension.",
             requirements: "• {x: x*x for x in range(1, 6)}",
-            hint: "squares = {x: x*x for x in range(1, 6)}\nprint(squares)",
+            hint: "Используй синтаксис {x: x*x for x in range(1, 6)}. Ключом будет x, значением — x*x.",
             type: "code",
             validator: (code) => code.includes('for') && code.includes(':')
         }
@@ -1652,7 +1652,7 @@ first, *rest = [1, 2, 3, 4]  # first = 1, rest = [2, 3, 4]</code></pre>
         task: {
             description: "Распакуйте список [1, 2] в переменные a и b.",
             requirements: "• a, b = [1, 2]",
-            hint: "a, b = [1, 2]\nprint(a, b)",
+            hint: "Напиши a, b = [1, 2]. Слева от равно — переменные через запятую, справа — список.",
             type: "code",
             validator: (code) => code.includes('=') && code.includes(',')
         }
@@ -1673,7 +1673,7 @@ deep_copy = copy.deepcopy(original)  # для вложенных списков<
         task: {
             description: "Скопируйте список [1,2,3] с помощью метода copy().",
             requirements: "• original = [1,2,3]\n• copy = original.copy()",
-            hint: "original = [1,2,3]\nnew_list = original.copy()\nprint(new_list)",
+            hint: "Сначала создай список original. Затем создай новую переменную и вызови метод .copy() у original.",
             type: "code",
             validator: (code) => code.includes('copy()')
         }
@@ -1688,7 +1688,7 @@ deep_copy = copy.deepcopy(original)  # для вложенных списков<
         task: {
             description: "Найдите сумму всех элементов списка [10, 20, 30, 40, 50] с помощью функции sum().",
             requirements: "• numbers = [10,20,30,40,50]\n• print(sum(numbers))",
-            hint: "numbers = [10,20,30,40,50]\nprint(sum(numbers))",
+            hint: "Функция sum() принимает список и возвращает сумму всех элементов.",
             type: "code",
             validator: (code) => code.includes('sum')
         }
@@ -1703,7 +1703,7 @@ deep_copy = copy.deepcopy(original)  # для вложенных списков<
         task: {
             description: "Отсортируйте список [3, 1, 4, 1, 5, 9] с помощью метода sort() или функции sorted().",
             requirements: "• numbers = [3,1,4,1,5,9]\n• numbers.sort() или sorted(numbers)",
-            hint: "numbers = [3,1,4,1,5,9]\nnumbers.sort()\nprint(numbers)",
+            hint: "Метод .sort() сортирует список на месте. Функция sorted() возвращает новый отсортированный список.",
             type: "code",
             validator: (code) => code.includes('sort') || code.includes('sorted')
         }
